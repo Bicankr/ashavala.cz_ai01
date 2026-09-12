@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="7.1594553mm"
+   height="2.5215695mm"
+   viewBox="0 0 7.159456 2.5215695"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.4 (dcaf3e7d9e, 2026-05-05)"
+   sodipodi:docname="LogoAutoskola.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="11.75194"
+     inkscape:cx="20.124337"
+     inkscape:cy="1.8720313"
+     inkscape:window-width="2560"
+     inkscape:window-height="1368"
+     inkscape:window-x="1920"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1">
+    <rect
+       x="23.485483"
+       y="-34.334759"
+       width="14.678428"
+       height="12.636212"
+       id="rect7" />
+  </defs>
+  <g
+     inkscape:label="Vrstva 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-12.035458,-122.09218)">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;font-family:'Roboto Condensed';-inkscape-font-specification:'Roboto Condensed, ';writing-mode:lr-tb;direction:ltr;fill:#4b3d91;stroke-width:0.264583"
+       x="11.816337"
+       y="123.23118"
+       id="text3"><tspan
+         sodipodi:role="line"
+         id="tspan3"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Roboto Condensed';-inkscape-font-specification:'Roboto Condensed, ';stroke-width:0.264583"
+         x="11.816337"
+         y="123.23118" /></text>
+    <rect
+       style="fill:#2680b7;stroke-width:0.171916"
+       id="rect1"
+       width="7.1594553"
+       height="2.5215695"
+       x="12.035458"
+       y="122.09218" />
+    <text
+       xml:space="preserve"
+       style="font-size:3.175px;font-family:Roboto;-inkscape-font-specification:Roboto;writing-mode:lr-tb;direction:ltr;fill:#ffffff;stroke-width:0.265;stroke-dasharray:none"
+       x="12.035459"
+       y="124.45615"
+       id="text2"><tspan
+         sodipodi:role="line"
+         id="tspan1"
+         style="fill:#ffffff;stroke-width:0.265;stroke-dasharray:none"
+         x="12.035459"
+         y="124.45615">H</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:1.5916px;font-family:Roboto;-inkscape-font-specification:Roboto;writing-mode:lr-tb;direction:ltr;fill:#ffffff;stroke-width:0.132841;stroke-dasharray:none"
+       x="14.162938"
+       y="124.4674"
+       id="text5"><tspan
+         sodipodi:role="line"
+         id="tspan2"
+         style="stroke-width:0.132842"
+         x="14.162938"
+         y="124.4674">AVALA</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:3.175px;font-family:Roboto;-inkscape-font-specification:Roboto;writing-mode:lr-tb;direction:ltr;fill:#ffffff;stroke-width:0.264999;stroke-dasharray:none"
+       x="13.071103"
+       y="119.35673"
+       id="text6"><tspan
+         sodipodi:role="line"
+         id="tspan5"
+         style="stroke-width:0.265"
+         x="13.071103"
+         y="119.35673" /></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,8.4219594,125.54808)"
+       id="text7"
+       style="font-family:Roboto;-inkscape-font-specification:Roboto;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect7);fill:#ffffff;stroke-width:1.00157;stroke-dasharray:none" />
+    <text
+       xml:space="preserve"
+       style="font-size:0.862949px;font-family:Roboto;-inkscape-font-specification:Roboto;writing-mode:lr-tb;direction:ltr;fill:#ffffff;stroke-width:0.0720257;stroke-dasharray:none"
+       x="14.715562"
+       y="122.83468"
+       id="text8"><tspan
+         sodipodi:role="line"
+         id="tspan8"
+         style="stroke-width:0.072026"
+         x="14.715562"
+         y="122.83468">Autoškola</tspan></text>
+  </g>
+</svg>

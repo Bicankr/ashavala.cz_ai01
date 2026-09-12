@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="7.1594553mm"
+   height="2.5215695mm"
+   viewBox="0 0 7.1594553 2.5215695"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="LogoAutoskola.svg"
+   inkscape:version="1.4.4 (dcaf3e7d9e, 2026-05-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="33.239506"
+     inkscape:cx="12.319678"
+     inkscape:cy="8.7847274"
+     inkscape:window-width="2560"
+     inkscape:window-height="1368"
+     inkscape:window-x="1920"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer2" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Vrstva 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-162.71875,-189.97083)" />
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Vrstva 2"
+     transform="translate(-162.71875,-189.97083)">
+    <rect
+       style="fill:#2680b7;stroke-width:0.171916"
+       id="rect1"
+       width="7.1594553"
+       height="2.5215695"
+       x="162.73845"
+       y="189.97083" />
+    <text
+       xml:space="preserve"
+       style="font-size:3.175px;font-family:Roboto;-inkscape-font-specification:Roboto;writing-mode:lr-tb;direction:ltr;fill:#ffffff;stroke-width:0.265;stroke-dasharray:none"
+       x="162.71875"
+       y="192.33479"
+       id="text2"><tspan
+         sodipodi:role="line"
+         id="tspan1"
+         style="fill:#ffffff;stroke-width:0.265;stroke-dasharray:none"
+         x="162.71875"
+         y="192.33479">H</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:1.5916px;font-family:Roboto;-inkscape-font-specification:Roboto;writing-mode:lr-tb;direction:ltr;fill:#ffffff;stroke-width:0.132841;stroke-dasharray:none"
+       x="164.84622"
+       y="192.34605"
+       id="text5"><tspan
+         sodipodi:role="line"
+         id="tspan2"
+         style="stroke-width:0.132842"
+         x="164.84622"
+         y="192.34605">AVALA</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:0.69402px;font-family:Roboto;-inkscape-font-specification:Roboto;writing-mode:lr-tb;direction:ltr;fill:#ffffff;stroke-width:0.0579262;stroke-dasharray:none"
+       x="165.31401"
+       y="191.10936"
+       id="text8"><tspan
+         sodipodi:role="line"
+         id="tspan8"
+         style="stroke-width:0.0579264"
+         x="165.31401"
+         y="191.10936">AUTOŠKOLA</tspan></text>
+  </g>
+</svg>
