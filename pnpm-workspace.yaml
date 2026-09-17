@@ -14,3 +14,5 @@ minimumReleaseAgeExclude:
   - '@next/swc-win32-x64-msvc@16.3.5'
   - eslint-config-next@16.3.5
   - next@16.3.5
+  - mongoose@9.10.1
+  - '@types/node@22.20.3'

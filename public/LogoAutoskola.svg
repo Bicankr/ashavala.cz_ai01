@@ -1,101 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
-
-<svg
-   width="126.69015mm"
-   height="28.462761mm"
-   viewBox="0 0 126.69014 28.462761"
-   version="1.1"
-   id="svg1"
-   inkscape:version="1.4.4 (dcaf3e7d9e, 2026-05-05)"
-   sodipodi:docname="LogoAutoskola.svg"
-   inkscape:export-filename="/home/bican/Projekty1/ashavala.cz_ai01/public/LogoAutoskola.svg"
-   inkscape:export-xdpi="96"
-   inkscape:export-ydpi="96"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <sodipodi:namedview
-     id="namedview1"
-     pagecolor="#ffffff"
-     bordercolor="#000000"
-     borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1"
-     inkscape:document-units="mm"
-     inkscape:zoom="2.937985"
-     inkscape:cx="242.0026"
-     inkscape:cy="104.83376"
-     inkscape:window-width="2560"
-     inkscape:window-height="1368"
-     inkscape:window-x="1920"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="layer1"
-     inkscape:export-bgcolor="#ffffff85" />
-  <defs
-     id="defs1" />
-  <g
-     inkscape:label="Vrstva 1"
-     inkscape:groupmode="layer"
-     id="layer1"
-     transform="translate(-60.801439,-156.08389)">
-    <text
-       xml:space="preserve"
-       style="font-size:7.15168px;font-family:Roboto;-inkscape-font-specification:Roboto;writing-mode:lr-tb;direction:ltr;fill:#00aa88;stroke-width:0.596912;stroke-dasharray:none"
-       x="120.86014"
-       y="184.47681"
-       id="text8-9-8"
-       inkscape:export-filename="/home/bican/Projekty1/ashavala.cz_ai01/public/text8-9-8.svg"
-       inkscape:export-xdpi="300.8649"
-       inkscape:export-ydpi="300.8649"><tspan
-         sodipodi:role="line"
-         id="tspan8-2-8"
-         style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:'Roboto Heavy';fill:#00aa88;stroke-width:0.596915"
-         x="120.86014"
-         y="184.47681">ŠKOLICÍ STŘEDISKO</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:8.12606px;font-family:Roboto;-inkscape-font-specification:Roboto;writing-mode:lr-tb;direction:ltr;fill:#0088aa;stroke-width:0.678238;stroke-dasharray:none"
-       x="61.122189"
-       y="184.46729"
-       id="text8-9-8-3"
-       inkscape:export-filename="/home/bican/Projekty1/ashavala.cz_ai01/public/text8-9-8.svg"
-       inkscape:export-xdpi="300.8649"
-       inkscape:export-ydpi="300.8649"><tspan
-         sodipodi:role="line"
-         id="tspan8-2-8-5"
-         style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:'Roboto Heavy';fill:#0088aa;stroke-width:0.678241"
-         x="61.122189"
-         y="184.46729">AUTOŠKOLA </tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:7.15168px;font-family:Roboto;-inkscape-font-specification:Roboto;writing-mode:lr-tb;direction:ltr;fill:#666666;stroke-width:0.596912;stroke-dasharray:none"
-       x="111.79369"
-       y="184.47331"
-       id="text8-9-8-3-7"
-       inkscape:export-filename="/home/bican/Projekty1/ashavala.cz_ai01/public/text8-9-8.svg"
-       inkscape:export-xdpi="300.8649"
-       inkscape:export-ydpi="300.8649"><tspan
-         sodipodi:role="line"
-         id="tspan8-2-8-5-0"
-         style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:'Roboto Heavy';fill:#666666;stroke-width:0.596915"
-         x="111.79369"
-         y="184.47331">&amp; </tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:26.8828px;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#ffffff;stroke-width:2.24377;stroke-dasharray:none"
-       x="60.745186"
-       y="175.19588"
-       id="text2-2-9"><tspan
-         sodipodi:role="line"
-         id="tspan1-3-8"
-         style="font-style:italic;font-variant:normal;font-weight:900;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:'Roboto Heavy Italic';fill:#000000;stroke-width:2.24377;stroke-dasharray:none"
-         x="60.745186"
-         y="175.19588"
-         dx="0.029999999">HAVALA</tspan></text>
-  </g>
+<svg width="113.16mm" height="28.412mm" version="1.1" viewBox="0 0 113.16 28.412" xmlns="http://www.w3.org/2000/svg">
+ <g transform="translate(-60.801 -156.08)" font-family="Roboto">
+  <text x="116.42989" y="184.43584" fill="#00aa88" font-size="6.1751px" stroke-width=".45428" xml:space="preserve"><tspan x="116.42989" y="184.43584" fill="#00aa88" font-family="Roboto" font-size="6.1751px" font-weight="900" stroke-width=".45429">ŠKOLICÍ STŘEDISKO</tspan></text>
+  <text x="60.942074" y="184.4169" fill="#0088aa" font-size="8.1139px" stroke-width=".67824" xml:space="preserve"><tspan x="60.942074" y="184.4169" fill="#0088aa" font-family="Roboto" font-size="8.1139px" font-weight="900" stroke-width=".67824">AUTOŠKOLA </tspan></text>
+  <text x="109.47041" y="184.42052" fill="#0088aa" font-size="7.744px" stroke-width=".5697" xml:space="preserve"><tspan x="109.47041" y="184.42052" fill="#000000" font-family="Roboto" font-size="7.744px" stroke-width=".56971">&amp; </tspan></text>
+  <text x="60.745186" y="175.19588" fill="#ffffff" font-size="26.883px" stroke-width="2.2438" xml:space="preserve"><tspan x="60.745186" y="175.19588" dx="0.029999999" fill="#000000" font-family="Roboto" font-style="italic" font-weight="900" stroke-width="2.2438">HAVALA</tspan></text>
+ </g>
 </svg>

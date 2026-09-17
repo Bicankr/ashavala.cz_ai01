@@ -1,7 +1,7 @@
 "use server";
 import dayjs from "dayjs";
 import nodemailer, { SentMessageInfo } from "nodemailer";
-import { logger } from "../logger";
+
 import { KurzyZahajeni } from "../models/KurzZahajeniModel";
 import {
   IZahajeniKurzu,
@@ -50,11 +50,11 @@ export async function SendMail(
           ]
         : undefined,
     });
-    logger.info(JSON.stringify(info));
+
     return info;
   } catch (err) {
     console.error(err);
-    logger.error(JSON.stringify(err));
+
     return {} as SentMessageInfo;
   }
 }

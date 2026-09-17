@@ -1,13 +1,16 @@
-"use client";
 import AppAppBar from "./components/AppAppBar";
 import Home from "./components/Home";
 
-export default function page() {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+  const img = (await searchParams).img as string;
   return (
     <>
-      {/* <CssBaseline enableColorScheme /> */}
       <AppAppBar />
-      <Home />
+      <Home img={img} />
     </>
   );
 }

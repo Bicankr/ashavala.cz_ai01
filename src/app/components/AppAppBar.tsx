@@ -20,13 +20,8 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   alignItems: "center",
   justifyContent: "space-between",
   flexShrink: 0,
-  // borderRadius: `calc(${theme.shape.borderRadius}px + 8px)`,
-  // backdropFilter: "blur(24px)",
-  // border: "1px solid",
-  // borderColor: (theme.vars || theme).palette.divider,
   backgroundColor: "none",
-
-  // boxShadow: (theme.vars || theme).shadows[1],
+  height: "80px",
 }));
 
 export default function AppAppBar() {
@@ -38,8 +33,6 @@ export default function AppAppBar() {
 
   return (
     <AppBar
-      position="fixed"
-      enableColorOnDark
       sx={{
         width: "100%",
         background: "linear-gradient(180deg, #ebf0f7 0%, #c7cfdb 100%)",
