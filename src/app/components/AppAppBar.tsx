@@ -35,6 +35,7 @@ export default function AppAppBar() {
     <AppBar
       sx={{
         width: "100%",
+        backgroundColor: "transparent",
         background: "linear-gradient(180deg, #ebf0f7 0%, #c7cfdb 100%)",
       }}
     >
@@ -54,7 +55,9 @@ export default function AppAppBar() {
             }}
           >
             <Box sx={{ mt: "5px" }}>
-              <Logo />
+              <Link href="#home">
+                <Logo />
+              </Link>
             </Box>
             <Box
               sx={{
@@ -114,6 +117,12 @@ export default function AppAppBar() {
                   Časté dotazy
                 </Button>
               </Link>
+              <Link href="/?img=den">
+                <Button variant="outlined">Den</Button>
+              </Link>
+              <Link href="/?img=noc">
+                <Button variant="outlined">Noc</Button>
+              </Link>
             </Box>
           </Box>
 
@@ -146,6 +155,13 @@ export default function AppAppBar() {
                 </Box>
 
                 <MenuList>
+                  <Link href="/?img=den">
+                    <Button variant="outlined">Den</Button>
+                  </Link>
+                  <Link href="/?img=noc">
+                    <Button variant="outlined">Noc</Button>
+                  </Link>
+
                   <Link
                     href="#sluzby"
                     onClick={toggleDrawer(false)}

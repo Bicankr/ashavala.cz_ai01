@@ -1,4 +1,5 @@
-"use server";
+"use client";
+import { gray } from "@/shared-theme/themePrimitives";
 import { Diamond, Group, SvgIconComponent, ThumbUp } from "@mui/icons-material";
 import {
   alpha,
@@ -6,30 +7,35 @@ import {
   Card,
   CardContent,
   Container,
+  Grow,
   Stack,
   Typography,
+  Zoom,
 } from "@mui/material";
 import Box from "@mui/material/Box";
-import { blue } from "@mui/material/colors";
 import { Oswald } from "next/font/google";
 import Image from "next/image";
-import Link from "next/link";
+import React, { useEffect, useState } from "react";
 
 const oswald = Oswald({ subsets: ["latin"], weight: "400" });
-export default async function Home(props: { img: string }) {
+
+export default function Home(props: { img: string }) {
+  const [checked, setChecked] = useState(false);
+
+  useEffect(() => {
+    setChecked(true); // Spustí animaci po načtení
+  }, []);
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="lg" id="home">
       <Box
-        component="section"
         sx={{
-          position: { xs: "initial", sm: "relative" },
+          position: { xs: "relative", sm: "relative" },
           overflow: "hidden",
           display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
           color: "#fff",
           height: { xs: "auto", sm: "auto" },
           mt: "80px",
+          zIndex: 1,
         }}
       >
         <Image
@@ -51,68 +57,76 @@ export default async function Home(props: { img: string }) {
             position: "absolute",
             top: 0,
             left: 0,
+
             width: "100%",
             height: "100%",
-            backgroundColor: "rgba(0, 0, 0, 0)", // Ztmaví pozadí o 40 %
+            backgroundColor: "rgba(0, 0, 0, 0)",
             zIndex: -1,
           }}
         />
 
-        {/* Obsah nad obrázkem */}
-        <Container sx={{ textAlign: "center" }}>
-          <HeroText />
+        <Container sx={{ textAlign: "center" }} disableGutters>
+          <CustomBox />
         </Container>
       </Box>
     </Container>
   );
 }
 
-export const ChlubCard = async (props: {
+export const ChlubCard = (props: {
   icon: SvgIconComponent;
   nadpis: string;
   text: string;
   color?: string;
 }) => {
   return (
-    <Card
-      sx={{
-        width: 100,
-        backgroundColor: "transparent",
-        color: "white",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <CardContent
+    <Grow in={true} style={{ transitionDelay: "600ms" }}>
+      <Card
         sx={{
-          display: "flex",
-          flexDirection: "column",
+          width: 100,
+          backgroundColor: "transparent",
+          color: "white",
+          justifyContent: "center",
           alignItems: "center",
-          textAlign: "center",
         }}
       >
-        <props.icon
-          sx={{ fontSize: "35px", color: props.color ? props.color : "white" }}
-        />
-        <Typography sx={{ fontWeight: "bold", fontSize: "15px" }} variant="h5">
-          {props.nadpis}
-        </Typography>
-        <Typography variant="body1" sx={{ fontSize: "10px" }}>
-          {props.text}
-        </Typography>
-      </CardContent>
-    </Card>
+        <CardContent
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            textAlign: "center",
+          }}
+        >
+          <props.icon
+            sx={{
+              fontSize: "35px",
+              color: props.color ? props.color : "white",
+            }}
+          />
+          <Typography
+            sx={{ fontWeight: "bold", fontSize: "15px", textWrap: "nowrap" }}
+            variant="h5"
+          >
+            {props.nadpis}
+          </Typography>
+          <Typography variant="body1" sx={{ fontSize: "10px" }}>
+            {props.text}
+          </Typography>
+        </CardContent>
+      </Card>
+    </Grow>
   );
 };
 
-export const HeroText = async () => {
+export const HeroText = () => {
   return (
     <Container maxWidth="lg">
       <Box
         sx={{
           maxWidth: { xs: "100%", md: "50%", borderRadius: "5px" },
           p: 3,
-          backgroundColor: alpha(blue[800], 0.8),
+          backgroundColor: alpha(gray[800], 0.5),
           m: { xs: 1, sm: 3 },
         }}
       >
@@ -127,26 +141,30 @@ export const HeroText = async () => {
         >
           AUTOŠKOLA A ŠKOLICÍ STŘEDISKO HAVALA - OLOMOUC
         </Typography>
-        <Typography
-          sx={{
-            color: "white",
-            fontSize: "35px",
-            fontWeight: "bold",
-            fontFamily: "oswald",
-          }}
-        >
-          AUTOŠKOLA HAVALA
-        </Typography>
-        <Typography
-          sx={{
-            color: "rgb(55, 155, 255, 1)",
-            fontSize: "25px",
-            fontWeight: "bold",
-            fontFamily: "oswald",
-          }}
-        >
-          VÁŠ ŘIDIČÁK
-        </Typography>
+        <Zoom in={true}>
+          <Typography
+            sx={{
+              color: "white",
+              fontSize: "35px",
+              fontWeight: "bold",
+              fontFamily: "oswald",
+            }}
+          >
+            AUTOŠKOLA HAVALA
+          </Typography>
+        </Zoom>
+        <Zoom in={true} style={{ transitionDelay: "500ms" }}>
+          <Typography
+            sx={{
+              color: "rgb(55, 155, 255, 1)",
+              fontSize: "25px",
+              fontWeight: "bold",
+              fontFamily: "oswald",
+            }}
+          >
+            VÁŠ ŘIDIČÁK
+          </Typography>
+        </Zoom>
         <Stack direction="row" spacing={2} sx={{ justifyContent: "center" }}>
           <ChlubCard
             icon={Diamond}
@@ -190,13 +208,16 @@ export const HeroText = async () => {
         >
           Chci začít
         </Button>
-        <Link href="/?img=den">
-          <Button variant="outlined">Den</Button>
-        </Link>
-        <Link href="/?img=noc">
-          <Button variant="outlined">Noc</Button>
-        </Link>
       </Box>
     </Container>
   );
 };
+
+const CustomBox = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>((props, ref) => (
+  <div ref={ref} {...props}>
+    <HeroText />
+  </div>
+));

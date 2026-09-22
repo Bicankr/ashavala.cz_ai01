@@ -18,6 +18,8 @@ export default function RootLayout({
           sx={{
             display: "flex",
             flexDirection: "column",
+            background: "linear-gradient(135deg, #406f9e 0%, #e2e8f0 100%)",
+            zIndex: -100,
           }}
         >
           {children}
