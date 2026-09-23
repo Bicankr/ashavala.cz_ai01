@@ -1,13 +1,10 @@
 "use client";
 import { gray } from "@/shared-theme/themePrimitives";
-import { Diamond, Group, SvgIconComponent, ThumbUp } from "@mui/icons-material";
+import { Diamond, Group, ThumbUp } from "@mui/icons-material";
 import {
   alpha,
   Button,
-  Card,
-  CardContent,
   Container,
-  Grow,
   Stack,
   Typography,
   Zoom,
@@ -15,16 +12,12 @@ import {
 import Box from "@mui/material/Box";
 import { Oswald } from "next/font/google";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { ChlubCard } from "./HmomeLib";
 
 const oswald = Oswald({ subsets: ["latin"], weight: "400" });
 
 export default function Home(props: { img: string }) {
-  const [checked, setChecked] = useState(false);
-
-  useEffect(() => {
-    setChecked(true); // Spustí animaci po načtení
-  }, []);
   return (
     <Container maxWidth="lg" id="home">
       <Box
@@ -72,52 +65,6 @@ export default function Home(props: { img: string }) {
     </Container>
   );
 }
-
-export const ChlubCard = (props: {
-  icon: SvgIconComponent;
-  nadpis: string;
-  text: string;
-  color?: string;
-}) => {
-  return (
-    <Grow in={true} style={{ transitionDelay: "600ms" }}>
-      <Card
-        sx={{
-          width: 100,
-          backgroundColor: "transparent",
-          color: "white",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <CardContent
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            textAlign: "center",
-          }}
-        >
-          <props.icon
-            sx={{
-              fontSize: "35px",
-              color: props.color ? props.color : "white",
-            }}
-          />
-          <Typography
-            sx={{ fontWeight: "bold", fontSize: "15px", textWrap: "nowrap" }}
-            variant="h5"
-          >
-            {props.nadpis}
-          </Typography>
-          <Typography variant="body1" sx={{ fontSize: "10px" }}>
-            {props.text}
-          </Typography>
-        </CardContent>
-      </Card>
-    </Grow>
-  );
-};
 
 export const HeroText = () => {
   return (

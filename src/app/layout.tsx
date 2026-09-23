@@ -1,4 +1,5 @@
 import { Box, CssBaseline } from "@mui/material";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -14,17 +15,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            background: "linear-gradient(135deg, #406f9e 0%, #e2e8f0 100%)",
-            zIndex: -100,
-          }}
-        >
-          {children}
-        </Box>
-        <CssBaseline />
+        <AppRouterCacheProvider>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              background: "linear-gradient(135deg, #406f9e 0%, #e2e8f0 100%)",
+            }}
+          >
+            {children}
+          </Box>
+          <CssBaseline />
+        </AppRouterCacheProvider>
       </body>
     </html>
   );

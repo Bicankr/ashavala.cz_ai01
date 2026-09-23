@@ -55,9 +55,7 @@ export default function AppAppBar() {
             }}
           >
             <Box sx={{ mt: "5px" }}>
-              <Link href="#home">
-                <Logo />
-              </Link>
+              <Logo />
             </Box>
             <Box
               sx={{
