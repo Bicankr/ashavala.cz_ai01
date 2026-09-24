@@ -1,9 +1,9 @@
 "use client";
 
 import { Box, Fade, Slide, Typography } from "@mui/material";
-import { TCenik } from "../lib/components";
+import { TSkupinyData } from "../lib/components";
 
-export const CardSkupina = (props: { polozkaCeniku: TCenik }) => {
+export const CardSkupina = (props: { polozkaCeniku: TSkupinyData }) => {
   return (
     <Fade in={true} timeout={3000}>
       <Box

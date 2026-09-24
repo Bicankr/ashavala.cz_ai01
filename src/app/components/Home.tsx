@@ -91,7 +91,7 @@ export const HeroText = () => {
         <Zoom in={true}>
           <Typography
             sx={{
-              color: "white",
+              color: "whitesmoke",
               fontSize: "35px",
               fontWeight: "bold",
               fontFamily: "oswald",

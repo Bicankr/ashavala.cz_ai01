@@ -5,7 +5,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Container from "@mui/material/Container";
 import Image from "next/image";
-import { cenik, TCenik } from "../lib/components";
+import { SkupinyData, TSkupinyData } from "../lib/components";
 
 export default async function Cenik() {
   return (
@@ -80,8 +80,8 @@ export default async function Cenik() {
               spacing={3}
               sx={{ alignItems: "center", justifyContent: "center" }}
             >
-              {cenik.map(
-                (polozkaCeniku: TCenik) =>
+              {SkupinyData.map(
+                (polozkaCeniku: TSkupinyData) =>
                   polozkaCeniku.imagePath && (
                     <Grid key={polozkaCeniku.skupina}>
                       <PolozkaCeniku polozkaCeniku={polozkaCeniku} />
@@ -104,8 +104,8 @@ export async function CenikObsah() {
         spacing={3}
         sx={{ alignItems: "center", justifyContent: "center" }}
       >
-        {cenik.map(
-          (polozkaCeniku: TCenik) =>
+        {SkupinyData.map(
+          (polozkaCeniku: TSkupinyData) =>
             polozkaCeniku.imagePath && (
               <Grid key={polozkaCeniku.skupina}>
                 <PolozkaCeniku polozkaCeniku={polozkaCeniku} />
@@ -117,7 +117,7 @@ export async function CenikObsah() {
   );
 }
 
-const PolozkaCeniku = (props: { polozkaCeniku: TCenik }) => {
+const PolozkaCeniku = (props: { polozkaCeniku: TSkupinyData }) => {
   return (
     <Card sx={{ width: 350 }}>
       <CardContent>

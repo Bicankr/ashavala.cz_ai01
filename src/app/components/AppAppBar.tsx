@@ -64,12 +64,12 @@ export default function AppAppBar() {
                 width: "100%",
               }}
             >
-              <Link href="#sluzby">
+              <Link href="#onas">
                 <Button
                   sx={{ color: "black", textTransform: "none", mt: "5px" }}
                   size="small"
                 >
-                  Služby
+                  O nás
                 </Button>
               </Link>
               <Link href="#cenik" sx={{ textDecoration: "none" }}>

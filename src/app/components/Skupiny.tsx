@@ -1,6 +1,6 @@
 import { Box, Container } from "@mui/material";
 import { Oswald } from "next/font/google";
-import { skupiny } from "../lib/components";
+import { SkupinyData } from "../lib/components";
 import { CardSkupina } from "./SkupinaCard";
 
 const oswald = Oswald({ subsets: ["latin"], weight: "400" });
@@ -13,7 +13,7 @@ export default function Skupiny() {
           sx={{
             display: "grid",
             p: 1,
-            backgroundColor: "rgb(0, 0, 0 )",
+            backgroundColor: "rgb(0, 0, 0 , 60%)",
             gridTemplateColumns: {
               xs: "repeat(4, minmax(0, 1fr))",
               sm: "repeat(6, minmax(0, 1fr))",
@@ -22,9 +22,11 @@ export default function Skupiny() {
             gap: 2,
           }}
         >
-          {skupiny.map((polozka) => (
-            <CardSkupina key={polozka.skupina} polozkaCeniku={polozka} />
-          ))}
+          {SkupinyData.filter((polozka) => polozka.prezentace).map(
+            (polozka) => (
+              <CardSkupina key={polozka.skupina} polozkaCeniku={polozka} />
+            ),
+          )}
         </Box>
       </Container>
     </Box>

@@ -1,7 +1,7 @@
 import { Stack } from "@mui/material";
 import AppAppBar from "./components/AppAppBar";
-import Cenik from "./components/Cenik";
 import Home from "./components/Home";
+import ONas from "./components/ONas";
 import Skupiny from "./components/Skupiny";
 
 export default async function Page({
@@ -15,8 +15,9 @@ export default async function Page({
       <AppAppBar />
       <Home img={img} />
       <Skupiny />
+      <ONas />
 
-      <Cenik />
+      {/* <Cenik /> */}
     </Stack>
   );
 }
