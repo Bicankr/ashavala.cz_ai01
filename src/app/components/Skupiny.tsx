@@ -11,20 +11,16 @@ export default function Skupiny() {
       <Container sx={{}}>
         <Box
           sx={{
-            display: "grid",
-            p: 1,
-            backgroundColor: "rgb(0, 0, 0 , 60%)",
-            gridTemplateColumns: {
-              xs: "repeat(4, minmax(0, 1fr))",
-              sm: "repeat(6, minmax(0, 1fr))",
-              md: "repeat(9, minmax(0, 1fr))",
-            },
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
             gap: 2,
+            backgroundColor: "rgb(0, 0, 0 , 60%)",
           }}
         >
           {SkupinyData.filter((polozka) => polozka.prezentace).map(
             (polozka) => (
-              <CardSkupina key={polozka.skupina} polozkaCeniku={polozka} />
+              <CardSkupina key={polozka.skupina} skupinaData={polozka} />
             ),
           )}
         </Box>

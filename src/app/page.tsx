@@ -1,8 +1,10 @@
 import { Stack } from "@mui/material";
 import AppAppBar from "./components/AppAppBar";
+import Cenik from "./components/Cenik";
 import Home from "./components/Home";
 import ONas from "./components/ONas";
 import Skupiny from "./components/Skupiny";
+import Vozidla from "./components/Vozidla";
 
 export default async function Page({
   searchParams,
@@ -16,8 +18,8 @@ export default async function Page({
       <Home img={img} />
       <Skupiny />
       <ONas />
-
-      {/* <Cenik /> */}
+      <Cenik />
+      <Vozidla />
     </Stack>
   );
 }

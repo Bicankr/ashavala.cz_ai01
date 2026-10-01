@@ -3,7 +3,7 @@
 import { Box, Fade, Slide, Typography } from "@mui/material";
 import { TSkupinyData } from "../lib/components";
 
-export const CardSkupina = (props: { polozkaCeniku: TSkupinyData }) => {
+export const CardSkupina = (props: { skupinaData: TSkupinyData }) => {
   return (
     <Fade in={true} timeout={3000}>
       <Box
@@ -11,17 +11,18 @@ export const CardSkupina = (props: { polozkaCeniku: TSkupinyData }) => {
           position: "relative",
           overflow: "hidden",
           borderRadius: 1,
-          p: 4,
+          m: 1,
+          pt: 1,
           bgcolor: "white",
           color: "white",
-          width: "100%",
+          width: "80px",
           alignItems: "center",
           justifyContent: "center",
           display: "flex",
           height: {
-            xs: 50,
-            sm: 100,
-            md: 100,
+            xs: 70,
+            sm: 70,
+            md: 70,
           },
         }}
       >
@@ -30,12 +31,14 @@ export const CardSkupina = (props: { polozkaCeniku: TSkupinyData }) => {
           sx={{
             position: "absolute",
             inset: -24,
-            backgroundImage: `url("${props.polozkaCeniku.iconPath}")`,
+            backgroundImage: `url("${props.skupinaData?.iconPath}")`,
             backgroundSize: " 60% auto",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
             filter: "blur(0px)",
             opacity: 0.15,
+            width: "auto",
+            height: "auto",
             pointerEvents: "none",
           }}
         />
@@ -47,11 +50,11 @@ export const CardSkupina = (props: { polozkaCeniku: TSkupinyData }) => {
                 color: "black",
                 fontWeight: "bold",
                 textAlign: "center",
-                fontSize: { xs: 15, sm: 30 },
+                fontSize: { xs: 24, sm: 30 },
               }}
               gutterBottom
             >
-              {props.polozkaCeniku.skupina}
+              {props.skupinaData.skupina}
             </Typography>
           </Slide>
         </Box>

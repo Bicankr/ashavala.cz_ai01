@@ -1,6 +1,7 @@
 import { Box, CssBaseline } from "@mui/material";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import type { Metadata } from "next";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Autoškola Havala Olomouc",

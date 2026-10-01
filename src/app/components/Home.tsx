@@ -1,14 +1,7 @@
 "use client";
-import { gray } from "@/shared-theme/themePrimitives";
+
 import { Diamond, Group, ThumbUp } from "@mui/icons-material";
-import {
-  alpha,
-  Button,
-  Container,
-  Stack,
-  Typography,
-  Zoom,
-} from "@mui/material";
+import { Button, Container, Stack, Typography, Zoom } from "@mui/material";
 import Box from "@mui/material/Box";
 import { Oswald } from "next/font/google";
 import Image from "next/image";
@@ -73,7 +66,7 @@ export const HeroText = () => {
         sx={{
           maxWidth: { xs: "100%", md: "50%", borderRadius: "5px" },
           p: 3,
-          backgroundColor: alpha(gray[800], 0.5),
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
           m: { xs: 1, sm: 3 },
         }}
       >
