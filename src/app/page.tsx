@@ -1,6 +1,7 @@
 import { Stack } from "@mui/material";
 import AppAppBar from "./components/AppAppBar";
 import Cenik from "./components/Cenik";
+import FAQ from "./components/FAQ";
 import Home from "./components/Home";
 import ONas from "./components/ONas";
 import Skupiny from "./components/Skupiny";
@@ -20,6 +21,7 @@ export default async function Page({
       <ONas />
       <Cenik />
       <Vozidla />
+      <FAQ />
     </Stack>
   );
 }

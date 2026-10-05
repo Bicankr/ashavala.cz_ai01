@@ -15,7 +15,7 @@ export default function Vozidla() {
           }}
         >
           <Grid container spacing={2} sx={{ width: "100%" }}>
-            <Grid size={{ xs: 12, sm: 12 }}>
+            <Grid size={{ xs: 12, sm: 12, md: 12 }}>
               <Box
                 sx={{
                   width: "100%",
@@ -51,6 +51,15 @@ export default function Vozidla() {
 const PolozkaVozidla = (props: TVozidlaData) => {
   return (
     <Grid size={{ xs: 12, sm: 6 }}>
+      <Typography
+        sx={{
+          fontWeight: "bold",
+          fontSize: { xs: 16, sm: 24 },
+          color: "rgb(0, 0, 0, 50%)",
+        }}
+      >
+        {props.skupina}
+      </Typography>
       <Box
         sx={{
           width: "100%",
@@ -77,16 +86,6 @@ const PolozkaVozidla = (props: TVozidlaData) => {
               width: "100%",
             }}
           >
-            <Typography
-              sx={{
-                m: 3,
-                fontWeight: "bold",
-                fontSize: { xs: 16, sm: 24 },
-                color: "black",
-              }}
-            >
-              {props.skupina}
-            </Typography>
             <Typography
               sx={{
                 m: 3,
