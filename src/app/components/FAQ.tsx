@@ -248,7 +248,7 @@ const FAQDataAutoskola: TFAQ[] = [
       "Ano, termíny jízd se snažíme přizpůsobit časovým možnostem klientů.",
   },
   {
-    otazka: "Mohu is vybrat instruktora?",
+    otazka: "Mohu si vybrat instruktora?",
     odpoved: "Ano, instruktora si spolu s termínem jízdy vybíráte v aplikaci.",
   },
   {
