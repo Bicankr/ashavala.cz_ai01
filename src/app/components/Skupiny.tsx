@@ -15,8 +15,10 @@ export default function Skupiny() {
             flexWrap: "wrap",
             justifyContent: "center",
             gap: 2,
-            // backgroundColor: "rgb(0, 0, 0 , 60%)",
-            backgroundImage: "url(/povrch.webp)",
+            position: "relative",
+            overflow: "hidden",
+
+            backgroundImage: `linear-gradient(rgba(0,0,0,0), rgba(0,0,0,.5)), url('/povrch.webp')`,
           }}
         >
           {SkupinyData.filter((polozka) => polozka.prezentace).map(

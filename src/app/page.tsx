@@ -4,6 +4,7 @@ import Cenik from "./components/Cenik";
 import FAQ from "./components/FAQ";
 import Home from "./components/Home";
 import ONas from "./components/ONas";
+import Prihlaska from "./components/Prihlaska";
 import Skupiny from "./components/Skupiny";
 import Vozidla from "./components/Vozidla";
 
@@ -20,6 +21,8 @@ export default async function Page({
       <Skupiny />
       <ONas />
       <Cenik />
+      <Prihlaska />
+
       <Vozidla />
       <FAQ />
     </Stack>

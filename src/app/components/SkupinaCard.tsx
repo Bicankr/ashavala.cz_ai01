@@ -36,7 +36,7 @@ export const CardSkupina = (props: { skupinaData: TSkupinyData }) => {
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
             filter: "blur(0px)",
-            opacity: 0.15,
+            opacity: 0.09,
             width: "auto",
             height: "auto",
             pointerEvents: "none",
