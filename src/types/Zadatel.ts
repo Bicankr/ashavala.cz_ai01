@@ -1,4 +1,4 @@
-import { zObjectId } from "@/lib/types";
+import { zObjectId } from "@/app/lib/types";
 import z from "zod";
 
 export type TTypSluzby = "kondicnijizdy" | "vycvik" | "prezkouseni" | undefined;
@@ -66,57 +66,72 @@ export const zMail = z.object({
   text: z.string().optional(),
 });
 
-export const zZadatel = z.object({
+export const zZadatelBase = z.object({
   jmeno: z
-    .string()
+    .string({ message: "Povinné pole" })
     .min(2, "Zadejte alespoň 2 znaky")
-    .meta({ title: "Jméno", order: 1 }),
+    .trim()
+    .meta({ label: "Jméno", order: 1 }),
   prijmeni: z
-    .string()
+    .string({ message: "Povinné pole" })
     .min(2, "Zadejte alespoň 2 znaky")
-    .meta({ title: "Příjmení", order: 2 }),
-  email: z.email("Zadejte platný e-mail").meta({ title: "E-mail", order: 3 }),
-  datumnarozeni: z.iso.date().meta({ title: "Datum narození", order: 4 }),
+    .trim()
+    .meta({ label: "Příjmení", order: 2 }),
+  email: z.email("Zadejte platný e-mail").meta({ label: "E-mail", order: 3 }),
+  datumnarozeni: z.iso
+    .date({ message: "Povinné pole" })
+    .meta({ label: "Datum narození", order: 4 }),
   mistonarozeni: z
-    .string()
+    .string({ message: "Povinné pole" })
     .min(2, "Zadejte alespoň 2 znaky")
-    .meta({ title: "Místo narození", order: 5 }),
-  rodnecislo: z.string().optional().meta({ title: "Rodné číslo", order: 6 }),
+    .trim()
+    .meta({ label: "Místo narození", order: 5 }),
+  rodnecislo: z.string().meta({ label: "Rodné číslo", order: 6 }).optional(),
   ulice: z
-    .string()
+    .string({ message: "Povinné pole" })
     .min(2, "Zadejte alespoň 2 znaky")
-    .meta({ title: "Ulice", order: 7 }),
+    .trim()
+    .meta({ label: "Ulice", order: 7 }),
   obec: z
-    .string()
+    .string({ message: "Povinné pole" })
     .min(2, "Zadejte alespoň 2 znaky")
-    .meta({ title: "Obec", order: 8 }),
+    .trim()
+    .meta({ label: "Obec", order: 8 }),
   smerovacicislo: z
-    .string()
+    .string({ message: "Povinné pole" })
     .regex(/^\d{5}$/, "Musí obsahovat přesně 5 číslic")
     .meta({
-      title: "Směrovací číslo",
+      label: "Směrovací číslo",
       order: 9,
     }),
-
-  _id: zObjectId,
+  obecniuradrp: z.string().optional().meta({
+    label: "Obec s rozšířenou působností",
+    order: 10,
+  }),
+  statniobcanstvi: z
+    .string({ message: "Povinné pole" })
+    .min(2, "Zadejte alespoň 2 znaky")
+    .meta({
+      label: "Státní občanství",
+      order: 11,
+    }),
+  dokladtotoznosti: z.string().optional().meta({
+    label: "Doklad totožnosti",
+    order: 12,
+  }),
+  telefon: z.string().optional().meta({ label: "Telefon", order: 13 }),
+  _id: zObjectId.optional(),
   _kurz: zObjectId,
   _evidencnikniha: zObjectId,
   platby: z.array(zPlatba).optional(),
   platbyP: z.array(zPlatbaP).optional(),
   poznamky: z.array(ZPoznamka).optional(),
-
   vlastnimro: z.boolean().optional().optional(),
   vlastneneSkupiny: z.object().optional(),
   zadaneSkupiny: z.object().optional(),
   cislorp: z.string().optional(),
-
   titul: z.string().optional().optional(),
-
-  statniobcanstvi: z.string().optional(),
-  dokladtotoznosti: z.string().optional(),
-  telefon: z.string().optional(),
   okres: z.string().optional(),
-  obecniuradrp: z.string().optional(),
   datumzahajeni: z.any().optional(),
   evidencnicislo: z.number().optional(),
   typsluzby: z
@@ -141,7 +156,6 @@ export const zZadatel = z.object({
   zdravotniposudek: z.boolean().optional().optional(),
   ukoncenyzadatel: z.boolean().optional().optional(),
   archiv: z.boolean().optional(),
-
   poznamka: z.string().optional(),
   vlozeno: z.any().optional().optional(),
   mails: z.array(zMail).optional(),
@@ -172,4 +186,9 @@ export const zZadatel = z.object({
   searchText: z.string().optional(),
 });
 
+export const zZadatel = zZadatelBase.extend({
+  _id: zObjectId,
+});
+
+export type IZadatelBase = z.infer<typeof zZadatelBase>;
 export type IZadatel = z.infer<typeof zZadatel>;

@@ -24,3 +24,7 @@ export const getKurzyZahajeni = async () => {
   }).lean();
   return JSON.parse(JSON.stringify(kz));
 };
+
+export async function handleZadatelSubmit(data: any) {
+  console.log("Data zpracovaná přímo na serveru:", data);
+}

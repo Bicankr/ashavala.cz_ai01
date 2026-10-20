@@ -1,4 +1,5 @@
-import { IPlatbaP, IPoznamka, IZadatel } from "@/types/Zadatel";
+import { IPlatbaP } from "@/app/models/ZadatelModel";
+import { IPoznamka, IZadatel } from "@/types/Zadatel";
 import mongoose, { Model, PaginateModel, Schema, Types } from "mongoose";
 import paginate from "mongoose-paginate-v2";
 
