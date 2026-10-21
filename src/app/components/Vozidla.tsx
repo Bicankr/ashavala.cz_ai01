@@ -4,7 +4,7 @@ import Image from "next/image";
 import { TVozidlaData, VozidlaData } from "../lib/components";
 const oswald = Oswald({ subsets: ["latin"], weight: "400" });
 
-export default function Vozidla() {
+export default async function Vozidla() {
   return (
     <Box id="vozidla" sx={{ mt: 5 }}>
       <Container sx={{ mt: 13 }}>

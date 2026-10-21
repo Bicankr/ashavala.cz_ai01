@@ -3,7 +3,8 @@ import { Oswald } from "next/font/google";
 import Image from "next/image";
 const oswald = Oswald({ subsets: ["latin"], weight: "400" });
 
-export default function ONas() {
+export default async function ONas() {
+  "use cache";
   return (
     <Box id="onas">
       <Container sx={{ mt: 13 }}>

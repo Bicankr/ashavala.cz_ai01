@@ -4,7 +4,8 @@ import Image from "next/image";
 import { SkupinyData, TSkupinyData } from "../lib/components";
 const oswald = Oswald({ subsets: ["latin"], weight: "400" });
 
-export default function Cenik() {
+export default async function Cenik() {
+  "use cache";
   return (
     <Box id="cenik" sx={{ mt: 5 }}>
       <Container sx={{ mt: 13 }}>

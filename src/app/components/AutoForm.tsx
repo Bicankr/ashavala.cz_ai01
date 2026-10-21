@@ -11,7 +11,10 @@ import {
 } from "@mui/material";
 import { Controller, Path, Resolver, useForm } from "react-hook-form"; // 'useForm' MUSÍ být z react-hook-form
 
+import { DateField } from "@mui/x-date-pickers";
+import dayjs from "dayjs";
 import { z } from "zod";
+import DateProvider from "./DateProvider";
 
 // 1. Zpřesníme generické omezení T
 interface AutoFormProps<T extends z.ZodObject<any>> {
@@ -27,42 +30,58 @@ export function AutoForm<T extends z.ZodObject<any>>({
   defaultValues,
   submitText = "Odeslat",
 }: AutoFormProps<T>) {
-  // Odvodíme přesný typ formulářových dat
   type FormData = z.output<T>;
 
   const {
     control,
     handleSubmit,
     formState: { errors },
+    getValues,
   } = useForm<FormData>({
-    // Pretvarování zodResolveru vyřeší typový konflikt v @hookform/resolvers
+    mode: "onBlur",
     resolver: zodResolver(schema) as unknown as Resolver<FormData>,
     defaultValues: defaultValues as any,
   });
+
+  const onInvalid = (errors: unknown) => {
+    console.error("VALIDACE SELHALA:", errors);
+    console.log("AKTUÁLNÍ HODNOTY:", getValues());
+  };
 
   const shape = schema.shape;
 
   const names = getSortedFormFields(schema);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate>
-      <Stack spacing={2.5}>
-        {names.map(({ name, label, order, type, schema }) => (
-          <FormField
-            key={name}
-            label={label!}
-            name={name as Path<z.infer<T>>}
-            schema={schema as z.ZodType}
-            control={control}
-            error={errors[name]?.message as string | undefined}
-          />
-        ))}
+    <DateProvider>
+      <form
+        onSubmit={handleSubmit(onSubmit, onInvalid)}
+        noValidate
+        onInvalid={onInvalid}
+      >
+        <Stack spacing={2.5}>
+          {names.map(({ name, label, order, type, schema }) => (
+            <FormField
+              key={name}
+              label={label!}
+              name={name as Path<z.infer<T>>}
+              schema={schema as z.ZodType}
+              control={control}
+              error={errors[name]?.message as string | undefined}
+            />
+          ))}
 
-        <Button type="submit" variant="contained" color="primary" fullWidth>
-          {submitText}
-        </Button>
-      </Stack>
-    </form>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            sx={{ textTransform: "none" }}
+          >
+            {submitText}
+          </Button>
+        </Stack>
+      </form>
+    </DateProvider>
   );
 }
 
@@ -74,8 +93,11 @@ interface FormFieldProps {
   error?: string;
 }
 function FormField({ name, schema, control, error, label }: FormFieldProps) {
-  // Rozbalení ZodOptional, ZodNullable nebo ZodDefault pro zjištění podkladového typu
   let unwrappedSchema = schema;
+
+  if (unwrappedSchema instanceof z.ZodISODate) {
+    console.log("ISO DATE", unwrappedSchema);
+  }
   while (
     unwrappedSchema instanceof z.ZodOptional ||
     unwrappedSchema instanceof z.ZodNullable ||
@@ -113,6 +135,7 @@ function FormField({ name, schema, control, error, label }: FormFieldProps) {
         control={control}
         render={({ field }) => (
           <TextField
+            size="small"
             {...field}
             type="number"
             label={label}
@@ -140,6 +163,7 @@ function FormField({ name, schema, control, error, label }: FormFieldProps) {
         control={control}
         render={({ field }) => (
           <TextField
+            size="small"
             {...field}
             value={field.value ?? ""}
             type={type}
@@ -173,6 +197,7 @@ function FormField({ name, schema, control, error, label }: FormFieldProps) {
         control={control}
         render={({ field }) => (
           <TextField
+            size="small"
             {...field}
             value={field.value ?? ""}
             type={inputType}
@@ -184,6 +209,42 @@ function FormField({ name, schema, control, error, label }: FormFieldProps) {
               htmlInput: {
                 // Přidání automatické nápovědy pro prohlížeč při emailu
                 autoComplete: inputType === "email" ? "email" : undefined,
+              },
+            }}
+          />
+        )}
+      />
+    );
+  }
+  //Datum
+  if (unwrappedSchema instanceof z.ZodISODate) {
+    return (
+      <Controller
+        name={name}
+        control={control}
+        render={({
+          field: { onChange, value, ...fieldProps },
+          fieldState: { error },
+        }) => (
+          <DateField
+            {...fieldProps}
+            label={label}
+            // KROK A: MUI DateField potřebuje objekt Dayjs. Pokud je hodnota prázdná, předáme null.
+            value={value ? dayjs(value) : null}
+            // KROK B: Při změně převedeme Dayjs objekt zpět na ISO string (YYYY-MM-DD) pro Zod schéma
+            onChange={(newValue) => {
+              if (newValue && dayjs(newValue).isValid()) {
+                onChange(dayjs(newValue).format("YYYY-MM-DD"));
+              } else {
+                onChange(""); // Pokud uživatel hodnotu smaže
+              }
+            }}
+            // Mapování chybových stavů do MUI
+            slotProps={{
+              textField: {
+                error: !!error,
+                helperText: error?.message,
+                fullWidth: true,
               },
             }}
           />

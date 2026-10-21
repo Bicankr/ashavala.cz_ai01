@@ -1,13 +1,16 @@
 import { zObjectId } from "@/app/lib/types";
 import z from "zod";
 
-export type TTypSluzby = "kondicnijizdy" | "vycvik" | "prezkouseni" | undefined;
 export const ZTypSluzby = z.enum([
   "kondicnijizdy",
   "vycvik",
   "prezkouseni",
-  "undefined",
+  "skolenizacinajicichridicu",
+  "skoronic",
+  "nic",
 ]);
+
+export type TTypSluzby = z.infer<typeof ZTypSluzby>;
 
 export const RolesDefinition = [
   "Admin",

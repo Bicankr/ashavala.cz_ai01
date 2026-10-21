@@ -1,13 +1,11 @@
+import { IZadatel } from "@/types/Zadatel";
 import { Box, Container, Grid, Stack, Typography } from "@mui/material";
-import dbConnect from "../lib/dbConnect";
 import { serializeJSON } from "../lib/lib";
-import { Zadatel } from "../models/ZadatelModel";
 import PrihlaskaClient from "./PrihlaskaClient";
 
 export default async function Prihlaska() {
-  await dbConnect();
-  const zadatel = await Zadatel.findOne({}).lean();
-
+  "use cache";
+  const zadatel: IZadatel = { datumnarozeni: "" } as IZadatel;
   return (
     <Box id="prihlaska" sx={{ mt: 5 }}>
       <Container sx={{ mt: 13 }}>

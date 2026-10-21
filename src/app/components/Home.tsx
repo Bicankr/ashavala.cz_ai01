@@ -10,7 +10,7 @@ import { ChlubCard } from "./HmomeLib";
 
 const oswald = Oswald({ subsets: ["latin"], weight: "400" });
 
-export default function Home(props: { img: string }) {
+export default function Home(props: { img?: string }) {
   return (
     <Container maxWidth="lg" id="home">
       <Box

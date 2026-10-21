@@ -5,7 +5,8 @@ import { CardSkupina } from "./SkupinaCard";
 
 const oswald = Oswald({ subsets: ["latin"], weight: "400" });
 
-export default function Skupiny() {
+export default async function Skupiny() {
+  "use cache";
   return (
     <Box>
       <Container sx={{}}>

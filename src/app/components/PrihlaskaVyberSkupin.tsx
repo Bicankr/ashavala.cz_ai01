@@ -2,6 +2,7 @@
 import skupinyKomplet from "@/app/lib/skupiny";
 import { TSkupina, TSkupiny } from "@/app/models/SkupinyModel";
 import { IZadatel } from "@/app/models/ZadatelModel";
+import { TTypSluzby } from "@/types/Zadatel";
 import {
   Card,
   CardContent,
@@ -20,11 +21,13 @@ interface IFormZadatel extends Partial<IZadatel> {
 }
 
 const NabizeneSkupiny = ["AM", "A1", "A2", "A", "B", "B+E", "C", "C+E", "D"];
+
 const skupiny = skupinyKomplet.filter((f) => NabizeneSkupiny.includes(f.nazev));
 
 const MyTextField = styled(TextField)({ margin: 5, width: "100%" });
-function Content() {
+export default function PrihlaskaVyberSkupin(props: { typSluzby: TTypSluzby }) {
   const DisableZadanaSkupina = (skupina: TSkupiny) => {
+    if (props.typSluzby !== "vycvik") return false;
     if (skupinyVlastnene?.includes(skupina.nazev)) return true;
     if (skupina.zakladniskupina) return false;
 
@@ -47,18 +50,19 @@ function Content() {
     return prunik.length > 0;
   };
 
-  const VlastneneSkupiny = () => (
+  const SkupinyVlastnene = () => (
     <Stack>
       <Card
         sx={{
-          boxShadow: 0,
+          boxShadow: 10,
           border: 1,
           borderColor: "lightgray",
+          backgroundColor: "rgb(0, 0, 0 , .01)",
           m: 0,
           p: 0,
         }}
       >
-        <CardContent>
+        <CardContent sx={{ backgroundColor: "white" }}>
           <Typography variant="subtitle2">Které skupiny máte</Typography>
           <FormGroup>
             <Stack direction={"row"} useFlexGap sx={{ flexWrap: "wrap" }}>
@@ -120,20 +124,10 @@ function Content() {
     </Stack>
   );
 
-  const SkupinyPiktogramy = () =>
-    skupiny.map((skupina) => (
-      <Image
-        alt={skupina.nazev}
-        key={skupina.nazev}
-        src={`/Skupiny/${skupina.nazev}.svg`}
-        width={40}
-        height={40}
-      />
-    ));
-  const ZadaneSkupiny = () => (
+  const SkupinyZadane = () => (
     <Card
       sx={{
-        boxShadow: 0,
+        boxShadow: 10,
         border: 1,
         borderColor: "lightgray",
         m: 0,
@@ -268,13 +262,9 @@ function Content() {
           alignItems: "center",
         }}
       >
-        <VlastneneSkupiny />
-        <ZadaneSkupiny />
+        {props.typSluzby === "vycvik" ? <SkupinyVlastnene /> : null}
+        <SkupinyZadane />
       </Stack>
     </>
   );
-}
-
-export default function PrihlaskaVyberSkupin() {
-  return <Content />;
 }
