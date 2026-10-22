@@ -2,11 +2,11 @@ allowBuilds:
   unrs-resolver: false
 minimumReleaseAgeExclude:
   - '@types/node@26.6.5'
-  - nodemailer@10.1.0 || 10.1.1 || 10.1.2
+  - nodemailer@10.1.0 || 10.1.1 || 10.1.2 || 10.2.0
   - react-hook-form@7.90.0
   - zod@4.6.6 || 4.6.7
   - kareem@3.4.1
-  - mongoose@9.11.2
+  - mongoose@9.11.2 || 9.11.3
   - '@next/env@16.4.1 || 16.4.2'
   - '@next/eslint-plugin-next@16.4.1 || 16.4.2'
   - '@next/swc-darwin-arm64@16.4.1 || 16.4.2'

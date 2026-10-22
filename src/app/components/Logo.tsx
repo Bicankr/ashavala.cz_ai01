@@ -5,7 +5,7 @@ export function Logo() {
   return (
     <Link href="#home">
       <Image
-        src="/LogoAutoskola.svg"
+        src="/LogoAutoskola2.svg"
         alt="Název firmy"
         width={180}
         height={46}
