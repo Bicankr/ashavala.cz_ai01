@@ -1,10 +1,18 @@
 "use client";
 
 import { Diamond, Group, ThumbUp } from "@mui/icons-material";
-import { Button, Container, Stack, Typography, Zoom } from "@mui/material";
+import {
+  Button,
+  Container,
+  Link,
+  Stack,
+  Typography,
+  Zoom,
+} from "@mui/material";
 import Box from "@mui/material/Box";
 import { Oswald } from "next/font/google";
 import Image from "next/image";
+
 import React from "react";
 import { ChlubCard } from "./HmomeLib";
 
@@ -25,9 +33,7 @@ export default function Home(props: { img?: string }) {
         }}
       >
         <Image
-          src={
-            props.img === "den" ? "/olomouc-scala.png" : "/olomouc-kamiq.png"
-          }
+          src={props.img === "den" ? "/VozovyPark.webp" : "/olomouc-kamiq.png"}
           alt="Autoškola Havala Olomouc"
           fill
           priority
@@ -137,17 +143,19 @@ export const HeroText = () => {
           <br />
           Od první jízdy až ke zkoušce.
         </Typography>
-        <Button
-          variant="contained"
-          sx={{
-            textTransform: "none",
-            backgroundColor: "rgb(55, 155, 255, 1)",
-            color: "white",
-            marginTop: "20px",
-          }}
-        >
-          Chci začít
-        </Button>
+        <Link href="#prihlaska">
+          <Button
+            variant="contained"
+            sx={{
+              textTransform: "none",
+              backgroundColor: "rgb(55, 155, 255, 1)",
+              color: "white",
+              marginTop: "20px",
+            }}
+          >
+            Chci začít
+          </Button>
+        </Link>
       </Box>
     </Container>
   );

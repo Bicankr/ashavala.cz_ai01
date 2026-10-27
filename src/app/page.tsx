@@ -16,7 +16,7 @@ type TProps = {
 
 export default function Page({ searchParams }: TProps) {
   return (
-    <Suspense fallback={<p>Načítání…</p>}>
+    <Suspense fallback={null}>
       <Content searchParams={searchParams} />
     </Suspense>
   );

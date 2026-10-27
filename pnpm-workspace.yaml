@@ -2,7 +2,7 @@ allowBuilds:
   unrs-resolver: false
 minimumReleaseAgeExclude:
   - '@types/node@26.6.5'
-  - nodemailer@10.1.0 || 10.1.1 || 10.1.2 || 10.2.0
+  - nodemailer@10.1.0 || 10.1.1 || 10.1.2 || 10.2.0 || 10.2.1
   - react-hook-form@7.90.0
   - zod@4.6.6 || 4.6.7
   - kareem@3.4.1
@@ -23,3 +23,4 @@ minimumReleaseAgeExclude:
   - react@19.3.1
   - '@mui/x-date-pickers@9.16.0'
   - '@mui/x-internals@9.16.0'
+  - '@hookform/resolvers@6.0.1'

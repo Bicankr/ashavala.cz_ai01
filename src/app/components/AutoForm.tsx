@@ -1,5 +1,5 @@
 "use client";
-import { zodResolver } from "@hookform/resolvers/zod";
+
 import {
   Button,
   Checkbox,
@@ -11,10 +11,13 @@ import {
 } from "@mui/material";
 import { Controller, Path, Resolver, useForm } from "react-hook-form"; // 'useForm' MUSÍ být z react-hook-form
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import { DateField } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import { z } from "zod";
 import DateProvider from "./DateProvider";
+import NaseptavacObceRuian from "./NaseptavacObceRuian";
+import { TAddressDetail } from "./adress";
 
 // 1. Zpřesníme generické omezení T
 interface AutoFormProps<T extends z.ZodObject<any>> {
@@ -28,6 +31,7 @@ export function AutoForm<T extends z.ZodObject<any>>({
   schema,
   onSubmit,
   defaultValues,
+
   submitText = "Odeslat",
 }: AutoFormProps<T>) {
   type FormData = z.output<T>;
@@ -37,6 +41,7 @@ export function AutoForm<T extends z.ZodObject<any>>({
     handleSubmit,
     formState: { errors },
     getValues,
+    setValues,
   } = useForm<FormData>({
     mode: "onBlur",
     resolver: zodResolver(schema) as unknown as Resolver<FormData>,
@@ -68,6 +73,8 @@ export function AutoForm<T extends z.ZodObject<any>>({
               schema={schema as z.ZodType}
               control={control}
               error={errors[name]?.message as string | undefined}
+              setValues={setValues}
+              getValues={getValues}
             />
           ))}
 
@@ -91,13 +98,60 @@ interface FormFieldProps {
   schema: z.ZodType;
   control: any;
   error?: string;
+  setValues: Function;
+  getValues: Function;
 }
-function FormField({ name, schema, control, error, label }: FormFieldProps) {
+function FormField({
+  name,
+  schema,
+  control,
+  error,
+  label,
+  getValues,
+  setValues,
+}: FormFieldProps) {
   let unwrappedSchema = schema;
 
-  if (unwrappedSchema instanceof z.ZodISODate) {
-    console.log("ISO DATE", unwrappedSchema);
+  if (name === "ulice") {
+    let inputType = "text";
+    return (
+      <Stack direction={"column"}>
+        <NaseptavacObceRuian
+          callBack={(data: TAddressDetail) => {
+            setValues({ obec: data.obec });
+            setValues({
+              ulice: `${data.ulice ? data.ulice : ""} ${data.cisloDomovni}`,
+            });
+            setValues({ smerovacicislo: data.psc });
+          }}
+        />
+        <Controller
+          name={name}
+          control={control}
+          render={({ field }) => (
+            <TextField
+              sx={{ mt: 2 }}
+              size="small"
+              {...field}
+              value={field.value ?? ""}
+              type={inputType}
+              label={label}
+              error={!!error}
+              helperText={error}
+              fullWidth
+              slotProps={{
+                htmlInput: {
+                  // Přidání automatické nápovědy pro prohlížeč při emailu
+                  autoComplete: inputType === "email" ? "email" : undefined,
+                },
+              }}
+            />
+          )}
+        />
+      </Stack>
+    );
   }
+
   while (
     unwrappedSchema instanceof z.ZodOptional ||
     unwrappedSchema instanceof z.ZodNullable ||
@@ -171,6 +225,13 @@ function FormField({ name, schema, control, error, label }: FormFieldProps) {
             error={!!error}
             helperText={error}
             fullWidth
+            sx={(theme) => ({
+              "& input:-webkit-autofill": {
+                WebkitBoxShadow: `0 0 0 100px ${theme.palette.background.paper} inset`,
+                WebkitTextFillColor: theme.palette.text.primary,
+                transition: "background-color 5000s ease-in-out 0s",
+              },
+            })}
           />
         )}
       />
@@ -227,6 +288,7 @@ function FormField({ name, schema, control, error, label }: FormFieldProps) {
           fieldState: { error },
         }) => (
           <DateField
+            size="small"
             {...fieldProps}
             label={label}
             // KROK A: MUI DateField potřebuje objekt Dayjs. Pokud je hodnota prázdná, předáme null.

@@ -78,7 +78,14 @@ export default function PrihlaskaVyberSkupin(props: { typSluzby: TTypSluzby }) {
                       sx={{ flexWrap: "wrap" }}
                     >
                       <FormControlLabel
+                        slotProps={{
+                          typography: {
+                            sx: { fontWeight: "bold" },
+                          },
+                        }}
                         sx={{
+                          fontWeight: "bold",
+                          fontSize: "50px",
                           width: "75px",
                           boxShadow: 1,
                           ":hover": {
@@ -144,11 +151,16 @@ export default function PrihlaskaVyberSkupin(props: { typSluzby: TTypSluzby }) {
                 return (
                   <Stack direction={"column"} key={skupina.nazev}>
                     <FormControlLabel
+                      slotProps={{
+                        typography: {
+                          sx: { fontWeight: "bold" },
+                        },
+                      }}
                       sx={{
                         width: "75px",
                         boxShadow: 1,
                         ":hover": {
-                          boxShadow: 10,
+                          boxShadow: DisableZadanaSkupina(skupina) ? null : 10,
                         },
                       }}
                       disabled={DisableZadanaSkupina(skupina)}

@@ -61,6 +61,7 @@ export default function PrihlaskaClient(props: TProps) {
               value={"skolenizacinajicichridicu" as TTypSluzby}
             />
           </TabList>
+
           <TabPanel value="vycvik" keepMounted sx={{ p: 0, maxwidth: "800px" }}>
             <Box
               sx={{
@@ -82,7 +83,15 @@ export default function PrihlaskaClient(props: TProps) {
                 Vaše údaje
               </Typography>
 
-              <Box sx={{ mx: "auto", maxWidth: "400px", mt: 1 }}>
+              <Box
+                sx={{
+                  mx: "auto",
+                  maxWidth: "400px",
+                  mt: 1,
+                  backgroundColor: "white",
+                  p: 1,
+                }}
+              >
                 <AutoForm
                   schema={zZadatel}
                   onSubmit={handleSubmit}

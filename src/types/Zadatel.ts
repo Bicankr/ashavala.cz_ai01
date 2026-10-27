@@ -89,7 +89,7 @@ export const zZadatelBase = z.object({
     .min(2, "Zadejte alespoň 2 znaky")
     .trim()
     .meta({ label: "Místo narození", order: 5 }),
-  rodnecislo: z.string().meta({ label: "Rodné číslo", order: 6 }).optional(),
+  rodnecislo: z.string().meta({ label: "Rodné číslo", order: 6 }),
   ulice: z
     .string({ message: "Povinné pole" })
     .min(2, "Zadejte alespoň 2 znaky")
@@ -99,7 +99,7 @@ export const zZadatelBase = z.object({
     .string({ message: "Povinné pole" })
     .min(2, "Zadejte alespoň 2 znaky")
     .trim()
-    .meta({ label: "Obec", order: 8 }),
+    .meta({ label: "Obec", order: 8, component: "NaseptavacObceRuian" }),
   smerovacicislo: z
     .string({ message: "Povinné pole" })
     .regex(/^\d{5}$/, "Musí obsahovat přesně 5 číslic")
