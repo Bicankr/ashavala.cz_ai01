@@ -123,6 +123,7 @@ function FormField({
               ulice: `${data.ulice ? data.ulice : ""} ${data.cisloDomovni}`,
             });
             setValues({ smerovacicislo: data.psc });
+            setValues({ obecniuradrp: data.orp });
           }}
         />
         <Controller

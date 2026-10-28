@@ -1,8 +1,8 @@
 "use client";
 import skupinyKomplet from "@/app/lib/skupiny";
 import { TSkupina, TSkupiny } from "@/app/models/SkupinyModel";
-import { IZadatel } from "@/app/models/ZadatelModel";
-import { TTypSluzby } from "@/types/Zadatel";
+
+import { IZadatel, TTypSluzby } from "@/types/Zadatel";
 import {
   Card,
   CardContent,

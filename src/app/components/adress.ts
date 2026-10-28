@@ -50,6 +50,7 @@ export type TAddressDetail = {
   cisloOrientacni: number | null;
   cisloOrientacniPismeno: string | null;
   psc: string | null;
+  orp?: string;
 };
 
 type Address = {
@@ -151,7 +152,7 @@ export async function getAddressDetail(
     municipalityCode,
     "nazev",
   );
-
+  const orp = await getOrp(municipalityCode);
   return {
     kodAdresnihoMista: address.kod,
     obec: municipality.nazev,
@@ -161,5 +162,46 @@ export async function getAddressDetail(
     cisloOrientacni: address.cisloorientacni,
     cisloOrientacniPismeno: address.cisloorientacnipismeno,
     psc: address.psc == null ? null : String(address.psc).padStart(5, "0"),
+    orp: orp?.nazev,
+  };
+}
+
+export async function getOrp(kodObce: number) {
+  // 1. U obce zjistíme kód nadřazeného POU.
+  const obec = await queryOne<{ pou: number | null }>(
+    12, // vrstva Obec
+    "kod", // hledáme podle RÚIAN kódu obce
+    kodObce,
+    "pou", // potřebujeme pouze pole pou
+  );
+
+  if (obec.pou == null) return null;
+
+  // 2. U POU zjistíme kód nadřazené ORP.
+  const pou = await queryOne<{ orp: number | null }>(
+    13, // vrstva POU
+    "kod",
+    obec.pou,
+    "orp",
+  );
+
+  if (pou.orp == null) return null;
+
+  // 3. Načteme název ORP a kód její správní obce.
+  const orp = await queryOne<{
+    kod: number;
+    nazev: string;
+    spravniobeckod: number | null;
+  }>(
+    14, // vrstva ORP
+    "kod",
+    pou.orp,
+    "kod,nazev,spravniobeckod",
+  );
+
+  return {
+    kodOrp: orp.kod,
+    nazev: orp.nazev,
+    kodSpravniObce: orp.spravniobeckod,
   };
 }
