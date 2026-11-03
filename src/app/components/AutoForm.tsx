@@ -39,11 +39,12 @@ export function AutoForm<T extends z.ZodObject<any>>({
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid, isSubmitting },
     getValues,
     setValues,
+    watch,
   } = useForm<FormData>({
-    mode: "onBlur",
+    mode: "onChange",
     resolver: zodResolver(schema) as unknown as Resolver<FormData>,
     defaultValues: defaultValues as any,
   });
@@ -57,38 +58,44 @@ export function AutoForm<T extends z.ZodObject<any>>({
 
   const names = getSortedFormFields(schema);
 
-  return (
-    <DateProvider>
-      <form
-        onSubmit={handleSubmit(onSubmit, onInvalid)}
-        noValidate
-        onInvalid={onInvalid}
-      >
-        <Stack spacing={2.5}>
-          {names.map(({ name, label, order, type, schema }) => (
-            <FormField
-              key={name}
-              label={label!}
-              name={name as Path<z.infer<T>>}
-              schema={schema as z.ZodType}
-              control={control}
-              error={errors[name]?.message as string | undefined}
-              setValues={setValues}
-              getValues={getValues}
-            />
-          ))}
+  const values = watch();
 
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            sx={{ textTransform: "none" }}
-          >
-            {submitText}
-          </Button>
-        </Stack>
-      </form>
-    </DateProvider>
+  return (
+    <>
+      <pre>{JSON.stringify(values, null, 2)}</pre>
+      <DateProvider>
+        <form
+          onSubmit={handleSubmit(onSubmit, onInvalid)}
+          noValidate
+          onInvalid={onInvalid}
+        >
+          <Stack spacing={2.5}>
+            {names.map(({ name, label, order, type, schema }) => (
+              <FormField
+                key={name}
+                label={label!}
+                name={name as Path<z.infer<T>>}
+                schema={schema as z.ZodType}
+                control={control}
+                error={errors[name]?.message as string | undefined}
+                setValues={setValues}
+                getValues={getValues}
+              />
+            ))}
+
+            <Button
+              disabled={!isValid || isSubmitting}
+              type="submit"
+              variant="contained"
+              color="primary"
+              sx={{ textTransform: "none" }}
+            >
+              {submitText}
+            </Button>
+          </Stack>
+        </form>
+      </DateProvider>
+    </>
   );
 }
 

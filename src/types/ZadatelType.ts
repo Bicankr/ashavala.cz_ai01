@@ -1,5 +1,6 @@
 import { zObjectId } from "@/app/lib/types";
 import z from "zod";
+import { zSkupinyVycet } from "./Skupiny";
 
 export const ZTypSluzby = z.enum([
   "kondicnijizdy",
@@ -45,22 +46,16 @@ export interface IPlatba {
   bankovniucet?: string;
 }
 
+export const zZpusobPlatby = z.enum(["Hotově", "Převodem"]);
+
 export const zPlatba = z.object({
   _id: zObjectId,
   castka: z.number().optional(),
   datum: z.iso.date().optional(),
-  zpusobplatby: z.enum(["Hotově", "Převodem"]).optional(),
+  zpusobplatby: zZpusobPlatby.optional(),
   bankovniucet: z.string().optional(),
 });
-
-export type TZpusobPlatby = "Hotově" | "Převodem";
-export const zPlatbaP = z.object({
-  _id: zObjectId,
-  castka: z.number().optional(),
-  datum: z.iso.date().optional(),
-  zpusobplatby: z.enum(["Hotově", "Převodem"]).optional(),
-  bankovniucet: z.string().optional(),
-});
+export type TPlatba = z.infer<typeof zPlatba>;
 
 export const zMail = z.object({
   _id: zObjectId,
@@ -82,7 +77,9 @@ export const zZadatelBase = z.object({
     .meta({ label: "Příjmení", order: 2 }),
   email: z.email("Zadejte platný e-mail").meta({ label: "E-mail", order: 3 }),
   datumnarozeni: z.iso
-    .date({ message: "Povinné pole" })
+    .date({
+      error: "Zadej platné datum ve formátu DD-MM-YYYY",
+    })
     .meta({ label: "Datum narození", order: 4 }),
   mistonarozeni: z
     .string({ message: "Povinné pole" })
@@ -122,16 +119,20 @@ export const zZadatelBase = z.object({
     label: "Doklad totožnosti",
     order: 12,
   }),
-  telefon: z.string().optional().meta({ label: "Telefon", order: 13 }),
+  telefon: z
+    .string()
+    .min(9, "Zadejte alespoň 9 čísel")
+    .meta({ label: "Telefon", order: 13 }),
+  skupinyzadane: z.array(zSkupinyVycet).optional(),
+  skupinyvlastnene: z.array(zSkupinyVycet).optional(),
   _id: zObjectId.optional(),
   _kurz: zObjectId,
   _evidencnikniha: zObjectId,
-  platby: z.array(zPlatba).optional(),
-  platbyP: z.array(zPlatbaP).optional(),
+  platbyP: z.array(zPlatba).optional(),
   poznamky: z.array(ZPoznamka).optional(),
   vlastnimro: z.boolean().optional().optional(),
-  vlastneneSkupiny: z.object().optional(),
-  zadaneSkupiny: z.object().optional(),
+  vlastneneSkupiny: z.record(z.string(), z.boolean()).optional(),
+  zadaneSkupiny: z.record(z.string(), z.boolean()).optional(),
   cislorp: z.string().optional(),
   titul: z.string().optional().optional(),
   okres: z.string().optional(),
@@ -192,6 +193,5 @@ export const zZadatelBase = z.object({
 export const zZadatel = zZadatelBase.extend({
   _id: zObjectId,
 });
-
 export type IZadatelBase = z.infer<typeof zZadatelBase>;
 export type IZadatel = z.infer<typeof zZadatel>;

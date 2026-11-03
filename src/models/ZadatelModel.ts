@@ -1,9 +1,9 @@
-import { IPlatbaP } from "@/app/models/ZadatelModel";
-import { IPoznamka, IZadatel } from "@/types/Zadatel";
+import { zSkupinyVycet } from "@/types/PlatbaType";
+import { IPoznamka, IZadatel, TPlatba } from "@/types/ZadatelType";
 import mongoose, { Model, PaginateModel, Schema, Types } from "mongoose";
 import paginate from "mongoose-paginate-v2";
 
-export const platbaPSchema = new Schema<IPlatbaP & mongoose.Document>({
+export const platbaSchema = new Schema<TPlatba & mongoose.Document>({
   castka: Number,
   datum: Date,
   zpusobplatby: String,
@@ -16,15 +16,25 @@ export const poznamkaSchema = new Schema<IPoznamka & mongoose.Document>({
 });
 
 export const ZadatelSchema = new Schema<IZadatel & mongoose.Document>({
+  _id: Schema.Types.ObjectId,
   _kurz: { type: Types.ObjectId, ref: "Kurz" },
   _evidencnikniha: { type: Types.ObjectId, ref: "EvidencniKniha" },
-  platby: [Object],
-  platbyP: [platbaPSchema],
   // poznamky: [poznamkaSchema],
+  platbyP: [platbaSchema],
   vlastnimro: Boolean,
   email: String,
-  vlastneneSkupiny: Object,
+  vlastneneSkupiny: Array,
   zadaneSkupiny: Object,
+  skupinyzadane: {
+    type: [String],
+    enum: zSkupinyVycet.options,
+    default: [],
+  },
+  skupinyvlastnene: {
+    type: [String],
+    enum: zSkupinyVycet.options,
+    default: [],
+  },
   cislorp: String,
   jmeno: String,
   prijmeni: String,

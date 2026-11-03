@@ -1,4 +1,4 @@
-import { IZadatel } from "@/types/Zadatel";
+import { IZadatel } from "@/types/ZadatelType";
 import mongoose, {
   Model,
   PaginateModel,

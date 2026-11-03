@@ -2,7 +2,7 @@
 import skupinyKomplet from "@/app/lib/skupiny";
 import { TSkupina, TSkupiny } from "@/app/models/SkupinyModel";
 
-import { IZadatel, TTypSluzby } from "@/types/Zadatel";
+import { IZadatel, TTypSluzby } from "@/types/ZadatelType";
 import {
   Card,
   CardContent,
@@ -10,8 +10,6 @@ import {
   FormControlLabel,
   FormGroup,
   Stack,
-  styled,
-  TextField,
   Typography,
 } from "@mui/material";
 import Image from "next/image";
@@ -19,23 +17,32 @@ import { useState } from "react";
 interface IFormZadatel extends Partial<IZadatel> {
   rozsireni: boolean;
 }
-
 const NabizeneSkupiny = ["AM", "A1", "A2", "A", "B", "B+E", "C", "C+E", "D"];
-
 const skupiny = skupinyKomplet.filter((f) => NabizeneSkupiny.includes(f.nazev));
 
-const MyTextField = styled(TextField)({ margin: 5, width: "100%" });
-export default function PrihlaskaVyberSkupin(props: { typSluzby: TTypSluzby }) {
+type TProps = {
+  typSluzby: TTypSluzby;
+  skupinyVlastnene: TSkupina[];
+  skupinyZadane: TSkupina[];
+  callBack: (pSkupinyZadane: TSkupina[], pSkupinyVlastnene: TSkupina[]) => void;
+};
+export default function PrihlaskaVyberSkupin(props: TProps) {
+  const [skupinyVlastnene, setSkupinyVlastnene] = useState(
+    props.skupinyVlastnene,
+  );
+  const [skupinyZadane, setSkupinyZadane] = useState(props.skupinyZadane);
+
+  const callBackZadane = (pSkupinyZadane: TSkupina[]) => {
+    setSkupinyZadane(pSkupinyZadane);
+  };
   const DisableZadanaSkupina = (skupina: TSkupiny) => {
     if (props.typSluzby !== "vycvik") return false;
     if (skupinyVlastnene?.includes(skupina.nazev)) return true;
     if (skupina.zakladniskupina) return false;
-
     let prunik = skupina.nadrazeneSkupiny.filter((f: TSkupina) =>
       skupinyZadane.includes(f),
     );
     if (prunik.length > 0) return true;
-
     prunik = skupina.vlastneneSkupiny.filter((f: TSkupina) =>
       skupinyVlastnene?.includes(f),
     );
@@ -50,8 +57,9 @@ export default function PrihlaskaVyberSkupin(props: { typSluzby: TTypSluzby }) {
     return prunik.length > 0;
   };
 
-  const SkupinyVlastnene = () => (
+  const SkupinyVlastnene = (props: {}) => (
     <Stack>
+      {JSON.stringify(skupinyVlastnene)}
       <Card
         sx={{
           boxShadow: 10,
@@ -131,7 +139,9 @@ export default function PrihlaskaVyberSkupin(props: { typSluzby: TTypSluzby }) {
     </Stack>
   );
 
-  const SkupinyZadane = () => (
+  const SkupinyZadane = (props: {
+    callBack: (skupinyZadane: TSkupina[]) => void;
+  }) => (
     <Card
       sx={{
         boxShadow: 10,
@@ -212,55 +222,54 @@ export default function PrihlaskaVyberSkupin(props: { typSluzby: TTypSluzby }) {
   };
 
   const handleChangeVlastnene = (skupinaNazev: TSkupina, checked: boolean) => {
-    let newSkupiny = skupinyVlastnene?.filter((f) => f !== skupinaNazev) ?? [];
+    let newSkupinyVlastnene =
+      skupinyVlastnene?.filter((f) => f !== skupinaNazev) ?? [];
     if (checked) {
-      newSkupiny.push(skupinaNazev);
+      newSkupinyVlastnene.push(skupinaNazev);
       const skupina = skupiny.find((f) => f.nazev === skupinaNazev);
       if (skupina) {
         for (const nazev of skupina.podrazeneSkupiny) {
-          newSkupiny = newSkupiny.filter((f) => f !== nazev);
-          newSkupiny.push(nazev);
+          newSkupinyVlastnene = newSkupinyVlastnene.filter((f) => f !== nazev);
+          newSkupinyVlastnene.push(nazev);
         }
       }
     } else {
       const skupina = skupiny.find((f) => f.nazev === skupinaNazev);
       if (skupina) {
         for (const nazev of skupina.nadrazeneSkupiny) {
-          newSkupiny = newSkupiny.filter((f) => f !== nazev);
+          newSkupinyVlastnene = newSkupinyVlastnene.filter((f) => f !== nazev);
         }
       }
     }
-
-    setSkupinyVlastnene(newSkupiny);
+    setSkupinyVlastnene(newSkupinyVlastnene);
     setSkupinyZadane([]);
+    props.callBack(newSkupinyVlastnene, skupinyZadane);
   };
 
   const handleChangeZadane = (skupinaNazev: TSkupina, checked: boolean) => {
-    let newSkupiny = skupinyZadane.filter((f) => f !== skupinaNazev);
+    let newSkupinyZadane = skupinyZadane.filter((f) => f !== skupinaNazev);
     if (checked) {
-      newSkupiny.push(skupinaNazev);
+      newSkupinyZadane.push(skupinaNazev);
       const skupina = skupiny.find((f) => f.nazev === skupinaNazev);
       if (skupina) {
         for (const nazev of skupina.podrazeneSkupiny) {
-          newSkupiny = newSkupiny.filter((f) => f !== nazev);
+          newSkupinyZadane = newSkupinyZadane.filter((f) => f !== nazev);
         }
         for (const nazev of skupina.nadrazeneSkupiny) {
-          newSkupiny = newSkupiny.filter((f) => f !== nazev);
+          newSkupinyZadane = newSkupinyZadane.filter((f) => f !== nazev);
         }
       }
     } else {
       const skupina = skupiny.find((f) => f.nazev === skupinaNazev);
       if (skupina) {
         for (const nazev of skupina.nadrazeneSkupiny) {
-          newSkupiny = newSkupiny.filter((f) => f !== nazev);
+          newSkupinyZadane = newSkupinyZadane.filter((f) => f !== nazev);
         }
       }
     }
-    setSkupinyZadane(newSkupiny);
+    setSkupinyZadane(newSkupinyZadane);
+    props.callBack(skupinyVlastnene, newSkupinyZadane);
   };
-
-  const [skupinyVlastnene, setSkupinyVlastnene] = useState([] as TSkupina[]);
-  const [skupinyZadane, setSkupinyZadane] = useState([] as TSkupina[]);
 
   return (
     <>
@@ -275,7 +284,7 @@ export default function PrihlaskaVyberSkupin(props: { typSluzby: TTypSluzby }) {
         }}
       >
         {props.typSluzby === "vycvik" ? <SkupinyVlastnene /> : null}
-        <SkupinyZadane />
+        <SkupinyZadane callBack={callBackZadane} />
       </Stack>
     </>
   );

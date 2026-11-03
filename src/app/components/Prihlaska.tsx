@@ -1,11 +1,10 @@
-import { IZadatel } from "@/types/Zadatel";
+import { IZadatel } from "@/types/ZadatelType";
 import { Box, Container, Grid, Stack, Typography } from "@mui/material";
-import { serializeJSON } from "../lib/lib";
 import PrihlaskaClient from "./PrihlaskaClient";
 
 export default async function Prihlaska() {
   "use cache";
-  const zadatel: IZadatel = { datumnarozeni: "" } as IZadatel;
+  const zadatel: IZadatel = {} as IZadatel;
   return (
     <Box id="prihlaska" sx={{ mt: 5 }}>
       <Container sx={{ mt: 13 }}>
@@ -40,7 +39,7 @@ export default async function Prihlaska() {
               </Box>
             </Grid>
             <Stack sx={{ width: "100%" }}>
-              <PrihlaskaClient defaultValues={serializeJSON(zadatel)} />
+              <PrihlaskaClient />
             </Stack>
           </Grid>
         </Box>

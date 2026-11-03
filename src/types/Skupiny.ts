@@ -21,3 +21,4 @@ export const SkupinyVycet = [
 ];
 
 export const zSkupinyVycet = z.enum(SkupinyVycet);
+export type TSkupinyVycet = z.infer<typeof zSkupinyVycet>;
