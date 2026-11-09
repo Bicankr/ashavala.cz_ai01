@@ -1,5 +1,6 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Button,
   Checkbox,
@@ -9,11 +10,9 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { Controller, Path, Resolver, useForm } from "react-hook-form"; // 'useForm' MUSÍ být z react-hook-form
-
-import { zodResolver } from "@hookform/resolvers/zod";
 import { DateField } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
+import { Controller, Path, Resolver, useForm } from "react-hook-form"; // 'useForm' MUSÍ být z react-hook-form
 import { z } from "zod";
 import DateProvider from "./DateProvider";
 import NaseptavacObceRuian from "./NaseptavacObceRuian";
@@ -27,13 +26,7 @@ interface AutoFormProps<T extends z.ZodObject<any>> {
   submitText?: string;
 }
 
-export function AutoForm<T extends z.ZodObject<any>>({
-  schema,
-  onSubmit,
-  defaultValues,
-
-  submitText = "Odeslat",
-}: AutoFormProps<T>) {
+export function AutoForm<T extends z.ZodObject<any>>(props: AutoFormProps<T>) {
   type FormData = z.output<T>;
 
   const {
@@ -45,8 +38,8 @@ export function AutoForm<T extends z.ZodObject<any>>({
     watch,
   } = useForm<FormData>({
     mode: "onChange",
-    resolver: zodResolver(schema) as unknown as Resolver<FormData>,
-    defaultValues: defaultValues as any,
+    resolver: zodResolver(props.schema) as unknown as Resolver<FormData>,
+    defaultValues: props.defaultValues as any,
   });
 
   const onInvalid = (errors: unknown) => {
@@ -54,9 +47,9 @@ export function AutoForm<T extends z.ZodObject<any>>({
     console.log("AKTUÁLNÍ HODNOTY:", getValues());
   };
 
-  const shape = schema.shape;
+  const shape = props.schema.shape;
 
-  const names = getSortedFormFields(schema);
+  const names = getSortedFormFields(props.schema);
 
   const values = watch();
 
@@ -65,7 +58,7 @@ export function AutoForm<T extends z.ZodObject<any>>({
       <pre>{JSON.stringify(values, null, 2)}</pre>
       <DateProvider>
         <form
-          onSubmit={handleSubmit(onSubmit, onInvalid)}
+          onSubmit={handleSubmit(props.onSubmit, onInvalid)}
           noValidate
           onInvalid={onInvalid}
         >
@@ -90,7 +83,7 @@ export function AutoForm<T extends z.ZodObject<any>>({
               color="primary"
               sx={{ textTransform: "none" }}
             >
-              {submitText}
+              {props.submitText}
             </Button>
           </Stack>
         </form>

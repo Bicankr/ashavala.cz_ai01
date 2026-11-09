@@ -22,7 +22,7 @@ export async function getZadatel<T>(_id: string): Promise<TActionState> {
     return { success: false, error: err.message };
   }
 }
-export const updateZadatel = async (
+export const submitZadatelVycvik = async (
   newDoc: IZadatel,
 ): Promise<TActionState> => {
   const kompatabilita = () => {
@@ -31,11 +31,15 @@ export const updateZadatel = async (
       poleVlastnene.map((klic) => [klic, true]),
     );
     newDoc.vlastneneSkupiny = vlastnene;
-
     const poleZadane = newDoc.skupinyzadane ?? [];
     const zadane = Object.fromEntries(poleZadane.map((klic) => [klic, true]));
     newDoc.zadaneSkupiny = zadane;
   };
+
+  const potvrzeni = () => {
+    return 1;
+  };
+
   kompatabilita();
   const parsed = zZadatelBase.safeParse(newDoc);
   newDoc.vlozeno = new Date();
@@ -52,7 +56,10 @@ export const updateZadatel = async (
       upsert: true,
       returnDocument: "after",
     }).lean();
-    return { success: true, data: serializeJSON(res) };
+    return {
+      success: true,
+      data: res,
+    };
   } catch (error) {
     const err = error as Error;
     return { success: false, error: err.message };
