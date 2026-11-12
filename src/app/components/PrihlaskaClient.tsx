@@ -1,13 +1,18 @@
 "use client";
 
 import { IZadatel, TTypSluzby, zZadatel } from "@/types/ZadatelType";
+import { CheckCircleOutlineOutlined, Close } from "@mui/icons-material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import {
+  Alert,
   Box,
   Dialog,
   DialogContent,
+  DialogTitle,
+  IconButton,
   Tab,
   Table,
+  TableBody,
   TableCell,
   TableRow,
   Typography,
@@ -49,6 +54,7 @@ export default function PrihlaskaClient() {
   );
   const [openVycvik, setOpenVycvik] = useState(false);
   const [res, setRes] = useState({} as IZadatel);
+  const [typSluzby, setTypSluzby] = useState("vycvik" as TTypSluzby);
 
   const callBack = (
     pSkupinyVlastnene: TSkupina[],
@@ -68,77 +74,116 @@ export default function PrihlaskaClient() {
     }
   };
 
-  const PrihlaskaVycvik = () => {
+  const Vycvik = () => {
     return (
       <>
         <Dialog
           open={openVycvik}
-          onClose={() => {}}
+          onClose={() => {
+            setOpenVycvik(false);
+          }}
           onClick={() => setOpenVycvik(false)}
         >
           <DialogContent>
+            <DialogTitle sx={{ position: "relative", pr: 6 }}>
+              Přihláška přijata
+              <IconButton
+                aria-label="Zavřít dialog"
+                onClick={() => setOpenVycvik(false)}
+                sx={{
+                  position: "absolute",
+                  right: 8,
+                  top: 8,
+                  color: "text.secondary",
+                }}
+              >
+                <Close />
+              </IconButton>
+            </DialogTitle>
             <>
-              <Typography sx={{ textWrap: "wrap" }} variant="subtitle1">
-                Na adresu {res.email} bylo zasláno potvrzení přijetí přihlášky
-                na výcvik pro skupin{skupinyZadane.length > 1 ? "y" : "u"}{" "}
-                {res.skupinyzadane?.join(", ")}
-              </Typography>
+              <Alert
+                icon={<CheckCircleOutlineOutlined fontSize="inherit" />}
+                severity="success"
+              >
+                Děkujeme za přihlášku. Na adresu {res.email} bylo zasláno
+                potvrzení přijetí přihlášky na{" "}
+                {value === "vycvik"
+                  ? "výcvik"
+                  : value === "kondicnijizdy"
+                    ? "kondiční jízdy"
+                    : value === "prezkouseni"
+                      ? "přezkoušení"
+                      : "školení začínajících řidičů"}{" "}
+                pro skupin
+                {skupinyZadane.length > 1 ? "y" : "u"}{" "}
+                {res.skupinyzadane?.join(", ")}.
+              </Alert>
               <br />
               <Table size="small">
-                <TableRow>
-                  <TableCell>Jméno</TableCell>
-                  <TableCell>{res.jmeno}</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Příjmení</TableCell>
-                  <TableCell>{res.prijmeni}</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>E-mail</TableCell>
-                  <TableCell>{res.email}</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Datum narození</TableCell>
-                  <TableCell>
-                    {dayjs(res.datumnarozeni).format("DD.MM.YYYY")}
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Místo narození</TableCell>
-                  <TableCell>{res.mistonarozeni}</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Rodné číslo</TableCell>
-                  <TableCell>{res.rodnecislo}</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Ulice</TableCell>
-                  <TableCell>{res.ulice}</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Obec</TableCell>
-                  <TableCell>{res.obec}</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Směrovací číslo</TableCell>
-                  <TableCell>{res.smerovacicislo}</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Obec s r.p.</TableCell>
-                  <TableCell>{res.obecniuradrp}</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Směrovací číslo</TableCell>
-                  <TableCell>{res.smerovacicislo}</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Státní občanství</TableCell>
-                  <TableCell>{res.statniobcanstvi}</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Doklad totožnosti</TableCell>
-                  <TableCell>{res.dokladtotoznosti}</TableCell>
-                </TableRow>
+                <TableBody>
+                  <TableRow>
+                    <TableCell>Jméno</TableCell>
+                    <TableCell>{res.jmeno}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>Příjmení</TableCell>
+                    <TableCell>{res.prijmeni}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>E-mail</TableCell>
+                    <TableCell>{res.email}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>Telefon</TableCell>
+                    <TableCell>{res.telefon}</TableCell>
+                  </TableRow>
+                  {value !== "kondicnijizdy" ? (
+                    <>
+                      <TableRow>
+                        <TableCell>Datum narození</TableCell>
+                        <TableCell>
+                          {dayjs(res.datumnarozeni).format("DD.MM.YYYY")}
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>Místo narození</TableCell>
+                        <TableCell>{res.mistonarozeni}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>Rodné číslo</TableCell>
+                        <TableCell>{res.rodnecislo}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>Ulice</TableCell>
+                        <TableCell>{res.ulice}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>Obec</TableCell>
+                        <TableCell>{res.obec}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>Směrovací číslo</TableCell>
+                        <TableCell>{res.smerovacicislo}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>Obec s r.p.</TableCell>
+                        <TableCell>{res.obecniuradrp}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>Směrovací číslo</TableCell>
+                        <TableCell>{res.smerovacicislo}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>Státní občanství</TableCell>
+                        <TableCell>{res.statniobcanstvi}</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>Doklad totožnosti</TableCell>
+                        <TableCell>{res.dokladtotoznosti}</TableCell>
+                      </TableRow>
+                    </>
+                  ) : null}
+                </TableBody>
               </Table>
             </>
           </DialogContent>
@@ -150,7 +195,7 @@ export default function PrihlaskaClient() {
         >
           <Box sx={{ mx: "auto" }}>
             <PrihlaskaVyberSkupin
-              typSluzby="vycvik"
+              zobrazovatVlastnene={true}
               callBack={callBack}
               skupinyVlastnene={skupinyVlastnene}
               skupinyZadane={skupinyZadane}
@@ -182,6 +227,7 @@ export default function PrihlaskaClient() {
               onSubmit={handleSubmitVycvik}
               defaultValues={defaultValues}
               submitText="Odeslat přihlášku"
+              visibleTags={["vycvik"]}
             />
           </Box>
         </Box>
@@ -197,7 +243,7 @@ export default function PrihlaskaClient() {
       >
         <Box sx={{ mx: "auto" }}>
           <PrihlaskaVyberSkupin
-            typSluzby="vycvik"
+            zobrazovatVlastnene={false}
             callBack={callBack}
             skupinyVlastnene={skupinyVlastnene}
             skupinyZadane={skupinyZadane}
@@ -229,12 +275,14 @@ export default function PrihlaskaClient() {
             onSubmit={handleSubmitVycvik}
             defaultValues={defaultValues}
             submitText="Odeslat přihlášku"
+            visibleTags={["prezkouseni"]}
           />
         </Box>
       </Box>
     );
   };
   const KondicniJizdy = () => {
+    setTypSluzby("kondicnijizdy");
     return (
       <Box
         sx={{
@@ -245,7 +293,7 @@ export default function PrihlaskaClient() {
           <PrihlaskaVyberSkupin
             skupinyVlastnene={skupinyVlastnene}
             skupinyZadane={skupinyZadane}
-            typSluzby="vycvik"
+            zobrazovatVlastnene={false}
             callBack={callBack}
           />
         </Box>
@@ -275,6 +323,7 @@ export default function PrihlaskaClient() {
             onSubmit={handleSubmitVycvik}
             defaultValues={defaultValues}
             submitText="Odeslat přihlášku"
+            visibleTags={["kondicnijizdy"]}
           />
         </Box>
       </Box>
@@ -291,7 +340,7 @@ export default function PrihlaskaClient() {
           <PrihlaskaVyberSkupin
             skupinyVlastnene={skupinyVlastnene}
             skupinyZadane={skupinyZadane}
-            typSluzby="vycvik"
+            zobrazovatVlastnene={false}
             callBack={callBack}
           />
         </Box>
@@ -321,6 +370,7 @@ export default function PrihlaskaClient() {
             onSubmit={handleSubmitVycvik}
             defaultValues={defaultValues}
             submitText="Odeslat přihlášku"
+            visibleTags={["skolenizacinajicichridicu"]}
           />
         </Box>
       </Box>
@@ -373,7 +423,7 @@ export default function PrihlaskaClient() {
             />
           </TabList>
           <TabPanel value="vycvik" keepMounted sx={{ p: 0, maxwidth: "800px" }}>
-            <PrihlaskaVycvik />
+            <Vycvik />
           </TabPanel>
           <TabPanel
             value="prezkouseni"

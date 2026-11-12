@@ -2,16 +2,14 @@ import { zObjectId } from "@/app/lib/types";
 import z from "zod";
 import { zSkupinyVycet } from "./Skupiny";
 
-export const ZTypSluzby = z.enum([
+export const zTypSluzby = z.enum([
   "kondicnijizdy",
   "vycvik",
   "prezkouseni",
   "skolenizacinajicichridicu",
-  "skoronic",
-  "nic",
 ]);
 
-export type TTypSluzby = z.infer<typeof ZTypSluzby>;
+export type TTypSluzby = z.infer<typeof zTypSluzby>;
 
 export const RolesDefinition = [
   "Admin",
@@ -69,38 +67,85 @@ export const zZadatelBase = z.object({
     .string({ message: "Povinné pole" })
     .min(2, "Zadejte alespoň 2 znaky")
     .trim()
-    .meta({ label: "Jméno", order: 1 }),
+    .meta({
+      label: "Jméno",
+      order: 1,
+      visibleTags: [
+        "vycvik",
+        "prezkouseni",
+        "skolenizacinajicichridicu",
+        "kondicnijizdy",
+      ],
+    }),
   prijmeni: z
     .string({ message: "Povinné pole" })
     .min(2, "Zadejte alespoň 2 znaky")
     .trim()
-    .meta({ label: "Příjmení", order: 2 }),
-  email: z.email("Zadejte platný e-mail").meta({ label: "E-mail", order: 3 }),
+    .meta({
+      label: "Příjmení",
+      order: 2,
+      visibleTags: [
+        "vycvik",
+        "prezkouseni",
+        "skolenizacinajicichridicu",
+        "kondicnijizdy",
+      ],
+    }),
+  email: z
+    .email("Zadejte platný e-mail")
+    .meta({
+      label: "E-mail",
+      order: 3,
+      visibleTags: [
+        "vycvik",
+        "prezkouseni",
+        "skolenizacinajicichridicu",
+        "kondicnijizdy",
+      ],
+    }),
   datumnarozeni: z.iso
     .date({
       error: "Zadej platné datum ve formátu DD-MM-YYYY",
     })
-    .meta({ label: "Datum narození", order: 4 }),
+    .meta({
+      visibleTags: ["vycvik", "prezkouseni", "skolenizacinajicichridicu"],
+      label: "Datum narození",
+      order: 4,
+    }),
   mistonarozeni: z
     .string({ message: "Povinné pole" })
     .min(2, "Zadejte alespoň 2 znaky")
     .trim()
-    .meta({ label: "Místo narození", order: 5 }),
+    .meta({
+      visibleTags: ["vycvik", "prezkouseni", "skolenizacinajicichridicu"],
+      label: "Místo narození",
+      order: 5,
+    }),
   rodnecislo: z.string().meta({ label: "Rodné číslo", order: 6 }),
   ulice: z
     .string({ message: "Povinné pole" })
     .min(2, "Zadejte alespoň 2 znaky")
     .trim()
-    .meta({ label: "Ulice", order: 7 }),
+    .meta({
+      visibleTags: ["vycvik", "prezkouseni", "skolenizacinajicichridicu"],
+      label: "Ulice",
+      order: 7,
+    }),
   obec: z
     .string({ message: "Povinné pole" })
     .min(2, "Zadejte alespoň 2 znaky")
     .trim()
-    .meta({ label: "Obec", order: 8, component: "NaseptavacObceRuian" }),
+    .meta({
+      visibleTags: ["vycvik", "prezkouseni", "skolenizacinajicichridicu"],
+      label: "Obec",
+      order: 8,
+      component: "NaseptavacObceRuian",
+    }),
   smerovacicislo: z
     .string({ message: "Povinné pole" })
     .regex(/^\d{5}$/, "Musí obsahovat přesně 5 číslic")
     .meta({
+      visibleTags: ["vycvik", "prezkouseni", "skolenizacinajicichridicu"],
       label: "Směrovací číslo",
       order: 9,
     }),
@@ -112,17 +157,31 @@ export const zZadatelBase = z.object({
     .string({ message: "Povinné pole" })
     .min(2, "Zadejte alespoň 2 znaky")
     .meta({
+      visibleTags: ["vycvik", "prezkouseni", "skolenizacinajicichridicu"],
       label: "Státní občanství",
       order: 11,
     }),
-  dokladtotoznosti: z.string().optional().meta({
-    label: "Doklad totožnosti",
-    order: 12,
-  }),
+  dokladtotoznosti: z
+    .string()
+    .optional()
+    .meta({
+      visibleTags: ["vycvik", "prezkouseni", "skolenizacinajicichridicu"],
+      label: "Doklad totožnosti",
+      order: 12,
+    }),
   telefon: z
     .string()
     .min(9, "Zadejte alespoň 9 čísel")
-    .meta({ label: "Telefon", order: 13 }),
+    .meta({
+      visibleTags: [
+        "kondicnijizdy",
+        "vycvik",
+        "prezkouseni",
+        "skolenizacinajicichridicu",
+      ],
+      label: "Telefon",
+      order: 13,
+    }),
   skupinyzadane: z.array(zSkupinyVycet).optional(),
   skupinyvlastnene: z.array(zSkupinyVycet).optional(),
   _id: zObjectId.optional(),

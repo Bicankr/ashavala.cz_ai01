@@ -18,15 +18,66 @@ import DateProvider from "./DateProvider";
 import NaseptavacObceRuian from "./NaseptavacObceRuian";
 import { TAddressDetail } from "./adress";
 
+function majiShodu(poleA: string[], poleB: string[]) {
+  const lenA = poleA?.length ?? 0;
+  const lenB = poleB?.length ?? 0;
+  if (lenA === 0 || lenB === 0) return false;
+
+  if (lenA * lenB < 400) {
+    for (let i = 0; i < lenA; i++) {
+      const val = poleA[i];
+      for (let j = 0; j < lenB; j++) {
+        if (val === poleB[j]) return true;
+      }
+    }
+    return false;
+  }
+  const [kratsi, delsi] = lenA <= lenB ? [poleA, poleB] : [poleB, poleA];
+  const set = new Set(kratsi);
+  for (let i = 0; i < delsi.length; i++) {
+    if (set.has(delsi[i])) return true;
+  }
+  return false;
+}
+
 // 1. Zpřesníme generické omezení T
 interface AutoFormProps<T extends z.ZodObject<any>> {
   schema: T;
   onSubmit: (data: z.output<T>) => void;
   defaultValues?: Partial<z.input<T>>;
   submitText?: string;
+  visibleTags: string[];
 }
 
 export function AutoForm<T extends z.ZodObject<any>>(props: AutoFormProps<T>) {
+  function getSortedFormFields(schema: z.ZodObject<any>): FieldMetadata[] {
+    const shape = schema.shape;
+
+    const fields: FieldMetadata[] = Object.keys(shape).map((key) => {
+      const fieldSchema = shape[key];
+
+      // Načtení metadat (zod3.23+ podporuje .description nebo .meta)
+      const meta = fieldSchema.meta() || {};
+
+      return {
+        name: key,
+        order: meta.order ?? undefined, // default na konec, pokud order chybí
+        label: meta.label || key,
+        type: meta.type || "text",
+        schema: fieldSchema,
+        meta: meta,
+      };
+    });
+
+    return fields
+      .filter(
+        (field) =>
+          field.order > 0 &&
+          majiShodu(field?.meta?.visibleTags, props?.visibleTags),
+      )
+      .sort((a, b) => a.order - b.order);
+  }
+
   type FormData = z.output<T>;
 
   const {
@@ -55,7 +106,7 @@ export function AutoForm<T extends z.ZodObject<any>>(props: AutoFormProps<T>) {
 
   return (
     <>
-      <pre>{JSON.stringify(values, null, 2)}</pre>
+      {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
       <DateProvider>
         <form
           onSubmit={handleSubmit(props.onSubmit, onInvalid)}
@@ -328,30 +379,5 @@ export interface FieldMetadata {
   label?: string;
   type?: string;
   schema: z.ZodObject;
-  meta?: z.ZodObject;
-}
-
-export function getSortedFormFields(schema: z.ZodObject<any>): FieldMetadata[] {
-  const shape = schema.shape;
-
-  const fields: FieldMetadata[] = Object.keys(shape).map((key) => {
-    const fieldSchema = shape[key];
-
-    // Načtení metadat (zod3.23+ podporuje .description nebo .meta)
-    const meta = fieldSchema.meta() || {};
-
-    return {
-      name: key,
-      order: meta.order ?? undefined, // default na konec, pokud order chybí
-      label: meta.label || key,
-      type: meta.type || "text",
-      schema: fieldSchema,
-      meta: meta,
-    };
-  });
-
-  // Seřazení podle meta.order
-  return fields
-    .filter((field) => field.order > 0)
-    .sort((a, b) => a.order - b.order);
+  meta?: any;
 }

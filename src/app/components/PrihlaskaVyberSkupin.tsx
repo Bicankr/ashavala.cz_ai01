@@ -2,7 +2,7 @@
 import skupinyKomplet from "@/app/lib/skupiny";
 import { TSkupina, TSkupiny } from "@/app/models/SkupinyModel";
 
-import { IZadatel, TTypSluzby } from "@/types/ZadatelType";
+import { IZadatel } from "@/types/ZadatelType";
 import {
   Card,
   CardContent,
@@ -21,7 +21,7 @@ const NabizeneSkupiny = ["AM", "A1", "A2", "A", "B", "B+E", "C", "C+E", "D"];
 const skupiny = skupinyKomplet.filter((f) => NabizeneSkupiny.includes(f.nazev));
 
 type TProps = {
-  typSluzby: TTypSluzby;
+  zobrazovatVlastnene: boolean;
   skupinyVlastnene: TSkupina[];
   skupinyZadane: TSkupina[];
   callBack: (pSkupinyZadane: TSkupina[], pSkupinyVlastnene: TSkupina[]) => void;
@@ -36,7 +36,7 @@ export default function PrihlaskaVyberSkupin(props: TProps) {
     setSkupinyZadane(pSkupinyZadane);
   };
   const DisableZadanaSkupina = (skupina: TSkupiny) => {
-    if (props.typSluzby !== "vycvik") return false;
+    if (props.zobrazovatVlastnene === false) return false;
     if (skupinyVlastnene?.includes(skupina.nazev)) return true;
     if (skupina.zakladniskupina) return false;
     let prunik = skupina.nadrazeneSkupiny.filter((f: TSkupina) =>
@@ -59,7 +59,6 @@ export default function PrihlaskaVyberSkupin(props: TProps) {
 
   const SkupinyVlastnene = (props: {}) => (
     <Stack>
-      {JSON.stringify(skupinyVlastnene)}
       <Card
         sx={{
           boxShadow: 10,
@@ -214,6 +213,7 @@ export default function PrihlaskaVyberSkupin(props: TProps) {
   const skupinyKJ = ["A", "B", "B+E"];
 
   const isCheckedVlastnene = (skupinaNazev: TSkupina) => {
+    if (props.zobrazovatVlastnene === false) return false;
     return skupinyVlastnene?.includes(skupinaNazev);
   };
 
@@ -254,6 +254,7 @@ export default function PrihlaskaVyberSkupin(props: TProps) {
       if (skupina) {
         for (const nazev of skupina.podrazeneSkupiny) {
           newSkupinyZadane = newSkupinyZadane.filter((f) => f !== nazev);
+          newSkupinyZadane.push(nazev);
         }
         for (const nazev of skupina.nadrazeneSkupiny) {
           newSkupinyZadane = newSkupinyZadane.filter((f) => f !== nazev);
@@ -283,7 +284,7 @@ export default function PrihlaskaVyberSkupin(props: TProps) {
           alignItems: "center",
         }}
       >
-        {props.typSluzby === "vycvik" ? <SkupinyVlastnene /> : null}
+        {props.zobrazovatVlastnene ? <SkupinyVlastnene /> : null}
         <SkupinyZadane callBack={callBackZadane} />
       </Stack>
     </>
