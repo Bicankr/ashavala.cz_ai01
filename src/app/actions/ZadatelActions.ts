@@ -1,6 +1,7 @@
 "use server";
 import { Zadatel } from "@/models/ZadatelModel";
 import { IZadatel, zZadatelBase } from "@/types/ZadatelType";
+import { Types } from "mongoose";
 import { z } from "zod";
 import dbConnect from "../lib/dbConnect";
 import { serializeJSON } from "../lib/lib";
@@ -52,10 +53,14 @@ export const submitZadatelVycvik = async (
 
   try {
     await dbConnect();
-    const res = await Zadatel.findOneAndUpdate({ _id: newDoc?._id }, newDoc, {
-      upsert: true,
-      returnDocument: "after",
-    }).lean();
+    const res = await Zadatel.findOneAndUpdate(
+      { _id: newDoc?._id ?? new Types.ObjectId() },
+      newDoc,
+      {
+        upsert: true,
+        returnDocument: "after",
+      },
+    ).lean();
     return {
       success: true,
       data: res,
