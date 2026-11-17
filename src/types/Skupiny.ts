@@ -22,3 +22,17 @@ export const SkupinyVycet = [
 
 export const zSkupinyVycet = z.enum(SkupinyVycet);
 export type TSkupinyVycet = z.infer<typeof zSkupinyVycet>;
+
+export const zSkupinaVlastnosti = z.object({
+  nazev: zSkupinyVycet,
+  zakladniskupina: z.boolean(),
+  vlastneneSkupiny: z.array(zSkupinyVycet),
+  podrazeneSkupiny: z.array(zSkupinyVycet),
+  nadrazeneSkupiny: z.array(zSkupinyVycet),
+  rozsireniNaSkupiny: z.array(zSkupinyVycet),
+  popis: z.string().optional(),
+  checked: z.boolean().optional(),
+  disabled: z.boolean().optional(),
+});
+
+export type TSkupinaVlastnosti = z.infer<typeof zSkupinaVlastnosti>;

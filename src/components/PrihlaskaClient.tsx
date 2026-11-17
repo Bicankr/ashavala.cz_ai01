@@ -1,6 +1,8 @@
 "use client";
-import { TSkupina } from "@/app/models/SkupinyModel";
-import { IZadatel, TTypSluzby, zZadatel } from "@/types/ZadatelType1";
+
+import { PotvrzeniPrihlasky } from "@/lib/mail";
+import { TSkupinyVycet } from "@/types/PlatbaType";
+import { IZadatel, TTypSluzby, zZadatel } from "@/types/ZadatelType";
 import { CheckCircleOutlineOutlined, Close } from "@mui/icons-material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import {
@@ -22,7 +24,7 @@ import {
 import dayjs from "dayjs";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import { submitZadatelVycvik } from "../actions/ZadatelActions";
+import { submitZadatel } from "../actions/ZadatelActions";
 import { AutoForm } from "./AutoForm";
 import PrihlaskaVyberSkupin from "./PrihlaskaVyberSkupin";
 
@@ -49,28 +51,30 @@ export default function PrihlaskaClient() {
 
   const [value, setValue] = React.useState("vycvik" as TTypSluzby);
   const [skupinyVlastnene, setSkupinyVlastnene] = useState(
-    defaultValues.skupinyvlastnene as TSkupina[],
+    defaultValues.skupinyvlastnene as TSkupinyVycet[],
   );
   const [skupinyZadane, setSkupinyZadane] = useState(
-    defaultValues.skupinyzadane as TSkupina[],
+    defaultValues.skupinyzadane as TSkupinyVycet[],
   );
   const [openVycvik, setOpenVycvik] = useState(false);
   const [res, setRes] = useState({} as IZadatel);
   const [typSluzby, setTypSluzby] = useState("vycvik" as TTypSluzby);
 
   const callBack = (
-    pSkupinyVlastnene: TSkupina[],
-    pSkupinyZadane: TSkupina[],
+    pSkupinyVlastnene: TSkupinyVycet[],
+    pSkupinyZadane: TSkupinyVycet[],
   ) => {
     setSkupinyVlastnene(pSkupinyVlastnene);
     setSkupinyZadane(pSkupinyZadane);
   };
-  const handleSubmitVycvik = async (data: any) => {
+  const handleSubmit = async (data: any) => {
     const newData = structuredClone(data) as IZadatel;
-    newData.skupinyzadane = skupinyZadane;
-    newData.skupinyvlastnene = skupinyVlastnene;
-    const res = await submitZadatelVycvik(newData);
+    newData.skupinyzadane = skupinyZadane as TSkupinyVycet[];
+    newData.skupinyvlastnene = skupinyVlastnene as TSkupinyVycet[];
+    newData.typsluzby = typSluzby;
+    const res = await submitZadatel(newData);
     if (res.success) {
+      PotvrzeniPrihlasky(newData);
       setRes(res.data as IZadatel);
       setOpenVycvik(true);
       setDefaultValues({} as IZadatel);
@@ -231,7 +235,7 @@ export default function PrihlaskaClient() {
           >
             <AutoForm
               schema={zZadatel}
-              onSubmit={handleSubmitVycvik}
+              onSubmit={handleSubmit}
               defaultValues={defaultValues}
               submitText="Odeslat přihlášku"
               visibleTags={["vycvik"]}
@@ -279,7 +283,7 @@ export default function PrihlaskaClient() {
         >
           <AutoForm
             schema={zZadatel}
-            onSubmit={handleSubmitVycvik}
+            onSubmit={handleSubmit}
             defaultValues={defaultValues}
             submitText="Odeslat přihlášku"
             visibleTags={["prezkouseni"]}
@@ -326,7 +330,7 @@ export default function PrihlaskaClient() {
         >
           <AutoForm
             schema={zZadatel}
-            onSubmit={handleSubmitVycvik}
+            onSubmit={handleSubmit}
             defaultValues={defaultValues}
             submitText="Odeslat přihlášku"
             visibleTags={["kondicnijizdy"]}
@@ -373,7 +377,7 @@ export default function PrihlaskaClient() {
         >
           <AutoForm
             schema={zZadatel}
-            onSubmit={handleSubmitVycvik}
+            onSubmit={handleSubmit}
             defaultValues={defaultValues}
             submitText="Odeslat přihlášku"
             visibleTags={["skolenizacinajicichridicu"]}
@@ -415,15 +419,22 @@ export default function PrihlaskaClient() {
             }}
           >
             <Tab
+              onClick={() => setTypSluzby("vycvik")}
               label="Výcvik pro získání řidičského oprávnění"
               value={"vycvik" as TTypSluzby}
             />
             <Tab
+              onClick={() => setTypSluzby("prezkouseni")}
               label="Přezkoušení z odborné způsobilosti"
               value={"prezkouseni" as TTypSluzby}
             />
-            <Tab label="Kondiční jízdy" value={"kondicnijizdy" as TTypSluzby} />
             <Tab
+              onClick={() => setTypSluzby("kondicnijizdy")}
+              label="Kondiční jízdy"
+              value={"kondicnijizdy" as TTypSluzby}
+            />
+            <Tab
+              onClick={() => setTypSluzby("skolenizacinajicichridicu")}
               label="Školení začínajících řidičů"
               value={"skolenizacinajicichridicu" as TTypSluzby}
             />

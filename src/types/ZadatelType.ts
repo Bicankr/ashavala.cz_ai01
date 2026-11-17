@@ -197,14 +197,7 @@ export const zZadatelBase = z.object({
   okres: z.string().optional(),
   datumzahajeni: z.any().optional(),
   evidencnicislo: z.number().optional(),
-  typsluzby: z
-    .union([
-      z.literal("kondicnijizdy").optional(),
-      z.literal("vycvik").optional(),
-      z.literal("prezkouseni").optional(),
-    ])
-    .optional()
-    .optional(),
+  typsluzby: zTypSluzby.optional(),
   TypSluzbyNazev: z.string().optional(),
   skupina: z.string().optional().optional(),
   skupiny: z.array(z.string()).optional(),

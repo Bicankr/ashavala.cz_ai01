@@ -1,13 +1,14 @@
 "use server";
 
-import { IObecOrpPsc, ObecOrpPsc } from "../app/models/ObecOrpPscModel";
+import { ObecOrpPsc } from "@/models/ObecOrpPscModel";
+import { IObecOrpPsc } from "@/types/ObecOrpPscType";
 import dbConnect from "./dbConnect";
-import { serializeData } from "./superjson";
+import { serializeJSON } from "./lib";
 
 export const AutocompleteObec = async (nazev: string) => {
   if (nazev.length <= 1) return [];
   await dbConnect();
-  const obce = serializeData(
+  const obce = serializeJSON(
     (await ObecOrpPsc.find({
       obecnazev: { $regex: nazev, $options: "i" },
     }).limit(10)) as IObecOrpPsc[],

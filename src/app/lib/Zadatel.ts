@@ -1,10 +1,8 @@
 "use server";
-
-import { IZadatel } from "@/types/Zadatel";
+import { Zadatel } from "@/models/ZadatelModel";
+import { IZadatel } from "@/types/ZadatelType";
 import { now } from "mongoose";
 import dbConnect from "../lib/dbConnect";
-import { Zadatel } from "../models/ZadatelModel";
-
 export const createZadatel = async (values: Partial<IZadatel>) => {
   await dbConnect();
   values.vlozeno = now();

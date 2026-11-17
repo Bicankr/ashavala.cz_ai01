@@ -1,6 +1,8 @@
 "use client";
-import { TSkupina, TSkupiny } from "@/app/models/SkupinyModel";
-import { IZadatel } from "@/types/ZadatelType1";
+import { skupinyKomplet } from "@/app/lib/skupiny";
+import { TSkupinyVycet } from "@/types/PlatbaType";
+import { TSkupinaVlastnosti } from "@/types/Skupiny";
+import { IZadatel } from "@/types/ZadatelType";
 import {
   Card,
   CardContent,
@@ -20,9 +22,12 @@ const skupiny = skupinyKomplet.filter((f) => NabizeneSkupiny.includes(f.nazev));
 
 type TProps = {
   zobrazovatVlastnene: boolean;
-  skupinyVlastnene: TSkupina[];
-  skupinyZadane: TSkupina[];
-  callBack: (pSkupinyZadane: TSkupina[], pSkupinyVlastnene: TSkupina[]) => void;
+  skupinyVlastnene: TSkupinyVycet[];
+  skupinyZadane: TSkupinyVycet[];
+  callBack: (
+    pSkupinyZadane: TSkupinyVycet[],
+    pSkupinyVlastnene: TSkupinyVycet[],
+  ) => void;
 };
 export default function PrihlaskaVyberSkupin(props: TProps) {
   const [skupinyVlastnene, setSkupinyVlastnene] = useState(
@@ -30,25 +35,25 @@ export default function PrihlaskaVyberSkupin(props: TProps) {
   );
   const [skupinyZadane, setSkupinyZadane] = useState(props.skupinyZadane);
 
-  const callBackZadane = (pSkupinyZadane: TSkupina[]) => {
+  const callBackZadane = (pSkupinyZadane: TSkupinyVycet[]) => {
     setSkupinyZadane(pSkupinyZadane);
   };
-  const DisableZadanaSkupina = (skupina: TSkupiny) => {
+  const DisableZadanaSkupina = (skupina: TSkupinaVlastnosti) => {
     if (props.zobrazovatVlastnene === false) return false;
     if (skupinyVlastnene?.includes(skupina.nazev)) return true;
     if (skupina.zakladniskupina) return false;
-    let prunik = skupina.nadrazeneSkupiny.filter((f: TSkupina) =>
+    let prunik = skupina.nadrazeneSkupiny.filter((f: TSkupinyVycet) =>
       skupinyZadane.includes(f),
     );
     if (prunik.length > 0) return true;
-    prunik = skupina.vlastneneSkupiny.filter((f: TSkupina) =>
+    prunik = skupina.vlastneneSkupiny.filter((f: TSkupinyVycet) =>
       skupinyVlastnene?.includes(f),
     );
     if (prunik.length > 0) return false;
     return true;
   };
 
-  const DisableVybrane = (skupina: TSkupiny) => {
+  const DisableVybrane = (skupina: TSkupinaVlastnosti) => {
     const prunik = skupina.nadrazeneSkupiny.filter((f) =>
       skupinyZadane.includes(f),
     );
@@ -137,7 +142,7 @@ export default function PrihlaskaVyberSkupin(props: TProps) {
   );
 
   const SkupinyZadane = (props: {
-    callBack: (skupinyZadane: TSkupina[]) => void;
+    callBack: (skupinyZadane: TSkupinyVycet[]) => void;
   }) => (
     <Card
       sx={{
@@ -210,16 +215,19 @@ export default function PrihlaskaVyberSkupin(props: TProps) {
 
   const skupinyKJ = ["A", "B", "B+E"];
 
-  const isCheckedVlastnene = (skupinaNazev: TSkupina) => {
+  const isCheckedVlastnene = (skupinaNazev: TSkupinyVycet) => {
     if (props.zobrazovatVlastnene === false) return false;
     return skupinyVlastnene?.includes(skupinaNazev);
   };
 
-  const isCheckedZadane = (skupinaNazev: TSkupina) => {
+  const isCheckedZadane = (skupinaNazev: TSkupinyVycet) => {
     return skupinyZadane.includes(skupinaNazev);
   };
 
-  const handleChangeVlastnene = (skupinaNazev: TSkupina, checked: boolean) => {
+  const handleChangeVlastnene = (
+    skupinaNazev: TSkupinyVycet,
+    checked: boolean,
+  ) => {
     let newSkupinyVlastnene =
       skupinyVlastnene?.filter((f) => f !== skupinaNazev) ?? [];
     if (checked) {
@@ -244,7 +252,10 @@ export default function PrihlaskaVyberSkupin(props: TProps) {
     props.callBack(newSkupinyVlastnene, skupinyZadane);
   };
 
-  const handleChangeZadane = (skupinaNazev: TSkupina, checked: boolean) => {
+  const handleChangeZadane = (
+    skupinaNazev: TSkupinyVycet,
+    checked: boolean,
+  ) => {
     let newSkupinyZadane = skupinyZadane.filter((f) => f !== skupinaNazev);
     if (checked) {
       newSkupinyZadane.push(skupinaNazev);

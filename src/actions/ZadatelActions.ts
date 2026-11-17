@@ -1,7 +1,7 @@
 "use server";
 import { logger } from "@/lib/pino";
 import { Zadatel } from "@/models/ZadatelModel";
-import { IZadatelBase, zZadatelBase } from "@/types/ZadatelType1";
+import { IZadatelBase, zZadatelBase } from "@/types/ZadatelType";
 import { z } from "zod";
 import dbConnect from "../lib/dbConnect";
 import { serializeJSON } from "../lib/lib";
@@ -23,7 +23,7 @@ export async function getZadatel<T>(_id: string): Promise<TActionState> {
     return { success: false, error: err.message };
   }
 }
-export const submitZadatelVycvik = async (
+export const submitZadatel = async (
   newDoc: IZadatelBase,
 ): Promise<TActionState> => {
   const kompatabilita = () => {

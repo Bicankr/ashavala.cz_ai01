@@ -1,6 +1,6 @@
-import { TSkupiny } from "../models/SkupinyModel";
+import { TSkupinaVlastnosti } from "@/types/Skupiny";
 
-export const skupiny: TSkupiny[] = [
+export const skupiny: TSkupinaVlastnosti[] = [
   {
     nazev: "AM",
     zakladniskupina: true,

@@ -1,4 +1,4 @@
-import { IZadatel } from "@/types/ZadatelType1";
+import { IZadatel } from "@/types/ZadatelType";
 import { Box, Container, Grid, Stack, Typography } from "@mui/material";
 import PrihlaskaClient from "./PrihlaskaClient";
 

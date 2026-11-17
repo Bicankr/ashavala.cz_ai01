@@ -11,10 +11,10 @@ import {
   Typography,
 } from "@mui/material";
 
+import { IObecOrpPsc } from "@/types/ObecOrpPscType";
 import { ClearIcon } from "@mui/x-date-pickers";
 import { useEffect, useRef, useState } from "react";
 import { AutocompleteObec } from "../lib/actions";
-import { IObecOrpPsc } from "../models/ObecOrpPscModel";
 
 export default function NaseptavacObce(props: {
   obec: string;

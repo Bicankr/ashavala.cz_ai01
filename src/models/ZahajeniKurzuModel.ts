@@ -2,9 +2,7 @@ import { IZahajeniKurzu } from "@/types/ZahajeniKurzu";
 import mongoose, { Model, PaginateModel, Schema } from "mongoose";
 import paginate from "mongoose-paginate-v2";
 
-export const ZahajeniKurzuSchema = new Schema<
-  IZahajeniKurzu & mongoose.Document
->({
+export const ZahajeniKurzuSchema = new Schema<IZahajeniKurzu>({
   _id: Schema.Types.ObjectId,
   skupina: String,
   odpoved: String,
@@ -15,7 +13,7 @@ export const ZahajeniKurzuSchema = new Schema<
 
 ZahajeniKurzuSchema.plugin(paginate);
 
-type T = IZahajeniKurzu & mongoose.Document;
+type T = IZahajeniKurzu;
 
 export const ZahajeniKurzuPagi: PaginateModel<T> =
   (mongoose.models?.ZahajeniKurzuPagi as PaginateModel<T>) ||
@@ -25,7 +23,7 @@ export const ZahajeniKurzuPagi: PaginateModel<T> =
     "zahajenikurzu",
   );
 
-export const Zadatel: Model<T> =
+export const ZahajeniKurzu: Model<T> =
   (mongoose.models?.ZahajeniKurzu as Model<T>) ||
   mongoose.model<IZahajeniKurzu>(
     "ZahajeniKurzu",

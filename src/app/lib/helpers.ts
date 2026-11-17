@@ -10,8 +10,3 @@ export const hasRole = (session: any, role: TRole): boolean => {
 
 export const addOrRemove = (arr: any = [], item: any) =>
   arr?.includes(item) ? arr?.filter((i: any) => i !== item) : [...arr, item];
-
-export const serialize = (o: unknown) => {
-  if (!o) return;
-  return JSON.parse(JSON.stringify(o));
-};

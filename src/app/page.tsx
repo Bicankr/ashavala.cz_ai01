@@ -1,14 +1,14 @@
+import AppAppBar from "@/components/AppAppBar";
+import Cenik from "@/components/Cenik";
+import FAQ from "@/components/FAQ";
+import Footer from "@/components/Footer";
+import Home from "@/components/Home";
+import ONas from "@/components/ONas";
+import Prihlaska from "@/components/Prihlaska";
+import Skupiny from "@/components/Skupiny";
+import Vozidla from "@/components/Vozidla";
 import { Stack } from "@mui/material";
 import { Suspense } from "react";
-import AppAppBar from "./components/AppAppBar";
-import Cenik from "./components/Cenik";
-import FAQ from "./components/FAQ";
-import Footer from "./components/Footer";
-import Home from "./components/Home";
-import ONas from "./components/ONas";
-import Prihlaska from "./components/Prihlaska";
-import Skupiny from "./components/Skupiny";
-import Vozidla from "./components/Vozidla";
 
 type TProps = {
   searchParams: Promise<{ img?: string }>;
