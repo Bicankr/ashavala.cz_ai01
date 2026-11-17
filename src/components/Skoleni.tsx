@@ -1,0 +1,145 @@
+import { Grid, Typography } from "@mui/material";
+import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Container from "@mui/material/Container";
+import Image from "next/image";
+
+export default function Skoleni() {
+  return (
+    <Box
+      id="home"
+      sx={(theme) => ({
+        width: "100%",
+        background: "linear-gradient(180deg, #ebf0f7 0%, #c7cfdb 100%)",
+      })}
+    >
+      <Container
+        id="vozidla"
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          pt: { xs: 10, sm: 11 },
+          pb: { xs: 8, sm: 12 },
+          background: "linear-gradient(180deg, #ebf0f7 0%, #c7cfdb 100%)",
+        }}
+      >
+        <Box
+          sx={{
+            width: { sm: "100%", md: "60%" },
+            textAlign: { sm: "left", md: "center" },
+          }}
+        >
+          <Typography
+            component="h2"
+            variant="h4"
+            gutterBottom
+            sx={{ color: "text.primary" }}
+          >
+            Školení řidičů
+          </Typography>
+          <Typography variant="body1" sx={{ color: "text.secondary" }}>
+            Na čem a v čem jezdíme
+          </Typography>
+        </Box>
+      </Container>
+    </Box>
+  );
+}
+
+type TCenik = {
+  popis: string;
+  skupina: string;
+  imagePath?: string;
+};
+
+const cenik: TCenik[] = [
+  {
+    popis: "Honda CPX125",
+    skupina: "AM",
+    imagePath: "/vozy/AM_HondaCPX125.png",
+  },
+  {
+    popis: "Honda CB125",
+    skupina: "A1",
+    imagePath: "/vozy/A1_HondaCB125.png",
+  },
+  {
+    popis: "Honda CBF500F",
+
+    skupina: "A2",
+    imagePath: "/vozy/HondaCB500F.gif",
+  },
+  {
+    popis: "Kawasaki 650",
+
+    skupina: "A",
+    imagePath: "/vozy/A_Kawasaki650.png",
+  },
+  {
+    popis: "Škoda Kamiq",
+    skupina: "B",
+    imagePath: "/vozy/KamiqCernyLeva.png",
+  },
+
+  { popis: "Iveco", skupina: "C", imagePath: "/vozy/Iveco3.png" },
+  {
+    popis: "C+E",
+    skupina: "C+E",
+    imagePath: "/vozy/Iveco2Vlek.png",
+  },
+  {
+    popis: "Man",
+
+    skupina: "B/D",
+    imagePath: "/vozy/autobus.png",
+  },
+];
+
+export function CenikObsah() {
+  return (
+    <>
+      <Grid
+        container
+        spacing={3}
+        sx={{ alignItems: "center", justifyContent: "center" }}
+      >
+        {cenik.map(
+          (polozkaCeniku: TCenik) =>
+            polozkaCeniku.imagePath && (
+              <Grid key={polozkaCeniku.skupina}>
+                <PolozkaCeniku polozkaCeniku={polozkaCeniku} />
+              </Grid>
+            ),
+        )}
+      </Grid>
+    </>
+  );
+}
+
+const PolozkaCeniku = (props: { polozkaCeniku: TCenik }) => {
+  return (
+    <Card sx={{ width: 300, backgroundColor: "lightgray" }}>
+      <CardContent>
+        <Image
+          src={props.polozkaCeniku.imagePath ?? ""}
+          alt={"alt"}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          width={300}
+          height={200}
+          style={{
+            objectFit: "contain", // Ořízne přebytky a vyplní celý rámec bez deformace
+            objectPosition: "center", // Zaměří středy obrázků
+          }}
+        />
+        <Typography gutterBottom variant="h5" component="div">
+          {props.polozkaCeniku.skupina}
+        </Typography>
+        <Typography variant="body2" sx={{ color: "text.secondary" }}>
+          {props.polozkaCeniku.popis}
+        </Typography>
+      </CardContent>
+    </Card>
+  );
+};

@@ -15,8 +15,11 @@ export const poznamkaSchema = new Schema<IPoznamka & mongoose.Document>({
   text: String,
 });
 
-export const ZadatelSchema = new Schema<IZadatel & mongoose.Document>({
-  _id: Schema.Types.ObjectId,
+export const ZadatelSchema = new Schema<IZadatel>({
+  _id: {
+    type: mongoose.Schema.Types.ObjectId,
+    default: () => new mongoose.Types.ObjectId(),
+  },
   _kurz: { type: Types.ObjectId, ref: "Kurz" },
   _evidencnikniha: { type: Types.ObjectId, ref: "EvidencniKniha" },
   // poznamky: [poznamkaSchema],
@@ -92,7 +95,7 @@ export const ZadatelSchema = new Schema<IZadatel & mongoose.Document>({
 
 ZadatelSchema.plugin(paginate);
 
-type T = IZadatel & mongoose.Document;
+type T = IZadatel;
 
 export const ZadatelPagi: PaginateModel<T> =
   (mongoose.models?.ZadatelPagi as PaginateModel<T>) ||

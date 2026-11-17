@@ -1,7 +1,7 @@
 "use server";
+import { logger } from "@/lib/pino";
 import { Zadatel } from "@/models/ZadatelModel";
-import { IZadatel, zZadatelBase } from "@/types/ZadatelType";
-import { Types } from "mongoose";
+import { IZadatelBase, zZadatelBase } from "@/types/ZadatelType1";
 import { z } from "zod";
 import dbConnect from "../lib/dbConnect";
 import { serializeJSON } from "../lib/lib";
@@ -24,7 +24,7 @@ export async function getZadatel<T>(_id: string): Promise<TActionState> {
   }
 }
 export const submitZadatelVycvik = async (
-  newDoc: IZadatel,
+  newDoc: IZadatelBase,
 ): Promise<TActionState> => {
   const kompatabilita = () => {
     const poleVlastnene = newDoc.skupinyvlastnene ?? [];
@@ -53,17 +53,13 @@ export const submitZadatelVycvik = async (
 
   try {
     await dbConnect();
-    const res = await Zadatel.findOneAndUpdate(
-      { _id: newDoc?._id ?? new Types.ObjectId() },
-      newDoc,
-      {
-        upsert: true,
-        returnDocument: "after",
-      },
-    ).lean();
+
+    const res = await Zadatel.create(newDoc);
+    const data = serializeJSON(res);
+    logger.info(res);
     return {
       success: true,
-      data: serializeJSON(res),
+      data: data,
     };
   } catch (error) {
     const err = error as Error;
