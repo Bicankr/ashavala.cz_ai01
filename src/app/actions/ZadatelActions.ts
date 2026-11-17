@@ -63,7 +63,7 @@ export const submitZadatelVycvik = async (
     ).lean();
     return {
       success: true,
-      data: res,
+      data: serializeJSON(res),
     };
   } catch (error) {
     const err = error as Error;

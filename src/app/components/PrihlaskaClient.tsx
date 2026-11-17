@@ -27,7 +27,7 @@ import { AutoForm } from "./AutoForm";
 import PrihlaskaVyberSkupin from "./PrihlaskaVyberSkupin";
 
 export default function PrihlaskaClient() {
-  const defaultValues: IZadatel = {
+  const defaultValuesTest: IZadatel = {
     jmeno: "Franta",
     prijmeni: "Vopršálek",
     email: "pavel.zednik@gmail.com",
@@ -44,6 +44,8 @@ export default function PrihlaskaClient() {
     statniobcanstvi: "CR",
     dokladtotoznosti: "123456789",
   } as IZadatel;
+
+  const [defaultValues, setDefaultValues] = useState(defaultValuesTest);
 
   const [value, setValue] = React.useState("vycvik" as TTypSluzby);
   const [skupinyVlastnene, setSkupinyVlastnene] = useState(
@@ -71,6 +73,9 @@ export default function PrihlaskaClient() {
     if (res.success) {
       setRes(res.data as IZadatel);
       setOpenVycvik(true);
+      setDefaultValues({} as IZadatel);
+      setSkupinyVlastnene([]);
+      setSkupinyZadane([]);
     }
   };
 
@@ -282,7 +287,6 @@ export default function PrihlaskaClient() {
     );
   };
   const KondicniJizdy = () => {
-    setTypSluzby("kondicnijizdy");
     return (
       <Box
         sx={{

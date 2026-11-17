@@ -254,7 +254,7 @@ export default function PrihlaskaVyberSkupin(props: TProps) {
       if (skupina) {
         for (const nazev of skupina.podrazeneSkupiny) {
           newSkupinyZadane = newSkupinyZadane.filter((f) => f !== nazev);
-          newSkupinyZadane.push(nazev);
+          // newSkupinyZadane.push(nazev);
         }
         for (const nazev of skupina.nadrazeneSkupiny) {
           newSkupinyZadane = newSkupinyZadane.filter((f) => f !== nazev);
