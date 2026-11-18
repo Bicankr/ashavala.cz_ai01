@@ -235,6 +235,21 @@ export default function PrihlaskaClient() {
           >
             <AutoForm
               schema={zZadatel}
+              zobrazitPole={[
+                "jmeno",
+                "prijmeni",
+                "email",
+                "datumnarozeni",
+                "mistonarozeni",
+                "rodnecislo",
+                "ulice",
+                "obec",
+                "smerovacicislo",
+                "obecniuradrp",
+                "statniobcanstvi",
+                "dokladtotoznosti",
+                "telefon",
+              ]}
               onSubmit={handleSubmit}
               defaultValues={defaultValues}
               submitText="Odeslat přihlášku"
@@ -282,6 +297,21 @@ export default function PrihlaskaClient() {
           }}
         >
           <AutoForm
+            zobrazitPole={[
+              "jmeno",
+              "prijmeni",
+              "email",
+              "datumnarozeni",
+              "mistonarozeni",
+              "rodnecislo",
+              "ulice",
+              "obec",
+              "smerovacicislo",
+              "obecniuradrp",
+              "statniobcanstvi",
+              "dokladtotoznosti",
+              "telefon",
+            ]}
             schema={zZadatel}
             onSubmit={handleSubmit}
             defaultValues={defaultValues}
@@ -329,6 +359,7 @@ export default function PrihlaskaClient() {
           }}
         >
           <AutoForm
+            zobrazitPole={["jmeno", "prijmeni", "email", "telefon"]}
             schema={zZadatel}
             onSubmit={handleSubmit}
             defaultValues={defaultValues}
@@ -376,6 +407,21 @@ export default function PrihlaskaClient() {
           }}
         >
           <AutoForm
+            zobrazitPole={[
+              "jmeno",
+              "prijmeni",
+              "email",
+              "datumnarozeni",
+              "mistonarozeni",
+              "rodnecislo",
+              "ulice",
+              "obec",
+              "smerovacicislo",
+              "obecniuradrp",
+              "statniobcanstvi",
+              "dokladtotoznosti",
+              "telefon",
+            ]}
             schema={zZadatel}
             onSubmit={handleSubmit}
             defaultValues={defaultValues}

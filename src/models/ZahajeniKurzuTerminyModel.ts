@@ -1,4 +1,4 @@
-import { IZahajeniKurzuTerminy } from "@/types/ZahajeniKurzuTerminy";
+import { IZahajeniKurzuTerminy } from "@/types/ZahajeniKurzuTerminyType";
 import mongoose, { Model, PaginateModel, Schema } from "mongoose";
 import paginate from "mongoose-paginate-v2";
 

@@ -69,13 +69,6 @@ export const zZadatelBase = z.object({
     .trim()
     .meta({
       label: "Jméno",
-      order: 1,
-      visibleTags: [
-        "vycvik",
-        "prezkouseni",
-        "skolenizacinajicichridicu",
-        "kondicnijizdy",
-      ],
     }),
   prijmeni: z
     .string({ message: "Povinné pole" })
@@ -83,43 +76,23 @@ export const zZadatelBase = z.object({
     .trim()
     .meta({
       label: "Příjmení",
-      order: 2,
-      visibleTags: [
-        "vycvik",
-        "prezkouseni",
-        "skolenizacinajicichridicu",
-        "kondicnijizdy",
-      ],
     }),
-  email: z
-    .email("Zadejte platný e-mail")
-    .meta({
-      label: "E-mail",
-      order: 3,
-      visibleTags: [
-        "vycvik",
-        "prezkouseni",
-        "skolenizacinajicichridicu",
-        "kondicnijizdy",
-      ],
-    }),
+  email: z.email("Zadejte platný e-mail").meta({
+    label: "E-mail",
+  }),
   datumnarozeni: z.iso
     .date({
       error: "Zadej platné datum ve formátu DD-MM-YYYY",
     })
     .meta({
-      visibleTags: ["vycvik", "prezkouseni", "skolenizacinajicichridicu"],
       label: "Datum narození",
-      order: 4,
     }),
   mistonarozeni: z
     .string({ message: "Povinné pole" })
     .min(2, "Zadejte alespoň 2 znaky")
     .trim()
     .meta({
-      visibleTags: ["vycvik", "prezkouseni", "skolenizacinajicichridicu"],
       label: "Místo narození",
-      order: 5,
     }),
   rodnecislo: z.string().meta({ label: "Rodné číslo", order: 6 }),
   ulice: z
@@ -127,27 +100,21 @@ export const zZadatelBase = z.object({
     .min(2, "Zadejte alespoň 2 znaky")
     .trim()
     .meta({
-      visibleTags: ["vycvik", "prezkouseni", "skolenizacinajicichridicu"],
       label: "Ulice",
-      order: 7,
     }),
   obec: z
     .string({ message: "Povinné pole" })
     .min(2, "Zadejte alespoň 2 znaky")
     .trim()
     .meta({
-      visibleTags: ["vycvik", "prezkouseni", "skolenizacinajicichridicu"],
       label: "Obec",
-      order: 8,
       component: "NaseptavacObceRuian",
     }),
   smerovacicislo: z
     .string({ message: "Povinné pole" })
     .regex(/^\d{5}$/, "Musí obsahovat přesně 5 číslic")
     .meta({
-      visibleTags: ["vycvik", "prezkouseni", "skolenizacinajicichridicu"],
       label: "Směrovací číslo",
-      order: 9,
     }),
   obecniuradrp: z.string().optional().meta({
     label: "Obec s rozšířenou působností",
@@ -157,31 +124,14 @@ export const zZadatelBase = z.object({
     .string({ message: "Povinné pole" })
     .min(2, "Zadejte alespoň 2 znaky")
     .meta({
-      visibleTags: ["vycvik", "prezkouseni", "skolenizacinajicichridicu"],
       label: "Státní občanství",
-      order: 11,
     }),
-  dokladtotoznosti: z
-    .string()
-    .optional()
-    .meta({
-      visibleTags: ["vycvik", "prezkouseni", "skolenizacinajicichridicu"],
-      label: "Doklad totožnosti",
-      order: 12,
-    }),
-  telefon: z
-    .string()
-    .min(9, "Zadejte alespoň 9 čísel")
-    .meta({
-      visibleTags: [
-        "kondicnijizdy",
-        "vycvik",
-        "prezkouseni",
-        "skolenizacinajicichridicu",
-      ],
-      label: "Telefon",
-      order: 13,
-    }),
+  dokladtotoznosti: z.string().optional().meta({
+    label: "Doklad totožnosti",
+  }),
+  telefon: z.string().min(9, "Zadejte alespoň 9 čísel").meta({
+    label: "Telefon",
+  }),
   skupinyzadane: z.array(zSkupinyVycet).optional(),
   skupinyvlastnene: z.array(zSkupinyVycet).optional(),
   _id: zObjectId.optional(),

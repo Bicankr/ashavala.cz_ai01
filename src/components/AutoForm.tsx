@@ -43,6 +43,7 @@ function majiShodu(poleA: string[], poleB: string[]) {
 // 1. Zpřesníme generické omezení T
 interface AutoFormProps<T extends z.ZodObject<any>> {
   schema: T;
+  zobrazitPole: (keyof T["shape"])[];
   onSubmit: (data: z.output<T>) => void;
   defaultValues?: Partial<z.input<T>>;
   submitText?: string;
@@ -98,11 +99,9 @@ export function AutoForm<T extends z.ZodObject<any>>(props: AutoFormProps<T>) {
     console.log("AKTUÁLNÍ HODNOTY:", getValues());
   };
 
-  const shape = props.schema.shape;
-
   const names = getSortedFormFields(props.schema);
 
-  const values = watch();
+  const shape = props.schema.shape;
 
   return (
     <>
@@ -114,18 +113,21 @@ export function AutoForm<T extends z.ZodObject<any>>(props: AutoFormProps<T>) {
           onInvalid={onInvalid}
         >
           <Stack spacing={2.5}>
-            {names.map(({ name, label, order, type, schema }) => (
-              <FormField
-                key={name}
-                label={label!}
-                name={name as Path<z.infer<T>>}
-                schema={schema as z.ZodType}
-                control={control}
-                error={errors[name]?.message as string | undefined}
-                setValues={setValues}
-                getValues={getValues}
-              />
-            ))}
+            {props.zobrazitPole.map((name) => {
+              const fieldSchema = shape[name];
+              return (
+                <FormField
+                  key={String(name)}
+                  label={fieldSchema.meta().label!}
+                  name={name as Path<z.infer<T>>}
+                  schema={fieldSchema as z.ZodType}
+                  control={control}
+                  error={errors[name]?.message as string | undefined}
+                  setValues={setValues}
+                  getValues={getValues}
+                />
+              );
+            })}
 
             <Button
               disabled={!isValid || isSubmitting}
