@@ -2,9 +2,9 @@
 
 import { ZahajeniKurzu, ZahajeniKurzuPagi } from "@/models/ZahajeniKurzuModel";
 import { ZahajeniKurzuTerminy } from "@/models/ZahajeniKurzuTerminyModel";
+import { TSkupinyVycet } from "@/types/Skupiny";
 import { IZadatel } from "@/types/ZadatelType";
 import { IZahajeniKurzu } from "@/types/ZahajeniKurzu";
-import { IZahajeniKurzuTerminy } from "@/types/ZahajeniKurzuTerminyType";
 import dayjs from "dayjs";
 import nodemailer from "nodemailer";
 import { SentMessageInfo } from "nodemailer/lib/smtp-pool";
@@ -107,12 +107,12 @@ export const PotvrzeniPrihlasky = async (
       const zahajeniKurzu = (await ZahajeniKurzu.findOne({
         skupina: "B",
       })) as IZahajeniKurzu;
-      html = zahajeniKurzu?.odpovedHtml ?? "";
-      const termin = (await ZahajeniKurzuTerminy.findOne(
+      html = zahajeniKurzu?.odpovedHtml ?? "666";
+      const termin = await ZahajeniKurzuTerminy.findOne(
         { skupina: "B", datum: { $gte: dayjs().toDate() } },
         {},
         { sort: { datum: 1 } },
-      )) as unknown as IZahajeniKurzuTerminy;
+      );
       const datumZahajeni = termin
         ? dayjs(termin.datum).format("D.M.YYYY HH:mm")
         : null;
@@ -120,7 +120,7 @@ export const PotvrzeniPrihlasky = async (
       html = html.replace("***", datumZahajeni || "");
     } else {
       const zahajeniKurzu = (await ZahajeniKurzu.findOne({
-        skupina: zadatel?.skupiny?.[0] as TSkupina,
+        skupina: zadatel?.skupiny?.[0] as TSkupinyVycet,
       })) as IZahajeniKurzu;
       html = zahajeniKurzu?.odpovedHtml ?? "";
     }
@@ -130,11 +130,11 @@ export const PotvrzeniPrihlasky = async (
         skupina: "B",
       })) as IZahajeniKurzu;
       html = zahajeniKurzu?.odpovedHtml ?? "";
-      const termin = (await ZahajeniKurzuTerminy.findOne(
+      const termin = await ZahajeniKurzuTerminy.findOne(
         { skupina: "B", datum: { $gte: dayjs().toDate() } },
         {},
         { sort: { datum: 1 } },
-      )) as unknown as IZahajeniKurzuTerminy;
+      );
       const datumZahajeni = termin
         ? dayjs(termin.datum).format("D.M.YYYY HH:mm")
         : null;
@@ -142,13 +142,6 @@ export const PotvrzeniPrihlasky = async (
       html = html.replace("***", datumZahajeni || "");
     }
   }
-
-  const kz = await KurzyZahajeni.findOne({
-    skupina: { $in: zadatel.skupinyzadane },
-    datumzahajeni: dayjs(datumZahajeni).toDate(),
-  });
-  kz?.zadateleIds.push(String(zadatel._id));
-  await kz?.save();
 
   const { email } = zadatel;
   SendMail(

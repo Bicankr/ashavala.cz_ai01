@@ -35,6 +35,7 @@ export const submitZadatel = async (
     const poleZadane = newDoc.skupinyzadane ?? [];
     const zadane = Object.fromEntries(poleZadane.map((klic) => [klic, true]));
     newDoc.zadaneSkupiny = zadane;
+    newDoc.skupiny = poleZadane.slice();
   };
 
   const potvrzeni = () => {
